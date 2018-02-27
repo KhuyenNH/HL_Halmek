@@ -1,0 +1,2492 @@
+//テンプレートから読み込まれるアコーディオンメニューの
+//エスケープ処理
+var domflag;
+var escapeflag;
+$.event.add(window, ("onpageshow" in window && window.onpageshow === null) ? "pageshow" : "load", function(){
+	if (!domflag){
+		domflag = 1;
+	}else{
+		escapeflag = 1;
+	}
+});
+
+
+// 変数「viewflag」チェック
+if (typeof(viewflag) == 'undefined') var viewflag;
+	// IE8チェック
+	var userAgent = window.navigator.userAgent.toLowerCase();
+	var appVersion = window.navigator.appVersion.toLowerCase();
+	if (userAgent.indexOf("msie") != -1 && appVersion.indexOf("msie 8.") != -1) viewflag = "IE8";
+/**
+ * 表示関連、UIなどの拡張クラス
+ */
+;var View = {};
+// View.initPage = function(){};
+
+/**
+ * ページ読み込み時に表示されるspinner.
+ */
+// !function($){
+$(function(){
+	//page読み込み用spinner
+	// View.$wrap.css('visibility','hidden');
+	// View.bodyspinner = new SpinnerControler({top:150});
+	View.bodyspinner = new SpinnerControler({padding:24},$('body'),true);
+	View.bodyspinner.setSize('M');
+	View.bodyspinner.show();
+	//hideはView.initAllの最後に。
+});//(window.jQuery);
+
+//各ページの初期化待ち：通常はしない。ajaxで初期化前にjson等をとって来る必要があれば真に。
+View.waitInitPage = 0;
+
+
+/**
+ * initAllのおわりに。
+ * @return {[type]} [description]
+ */
+View.onInitAll = function(){
+	//Spinnerを消す
+	View.bodyspinner && View.bodyspinner.hide();
+	//隠していた要素を表示
+	View.$wrap.addClass('show');
+	//.errorがあるとき監視。スクロールとか。
+	// View.$errors = $('.wrap-body .error');
+	View.errors = new View.ErrorObserver();
+	//初期化終了フラグにも使うため。
+	View.waitInitPage = 0;
+
+	View.onShown();
+};
+
+//override専用（エラー表示も終えたラスト）
+View.onShown = function(){};
+
+/**
+ * 汎用ViewのInit.パーツ読み込み完了時に即実行。
+ */
+View.initAll = function(){
+
+	View.$w = $(window);
+	View.$body = $('body');
+	View.$wrap = $('body > .wrap-body');
+	View.$sideNav = $('#sideNav');//サイドナビがある場合は処理しやすいように。
+
+	//[FIXME] safari用ブラウザバック対策(mobilesafariはだめ。loadイベントをpageshowにしないといけない？)
+	View.$w.on('unload',function(){});
+
+	//firefox,macsafari用<label for="*" の挙動修正(:radioのcheckedイベント)
+	if($.browser.mozilla || $.browser.safari || ($.browser.chrome && parseInt($.browser.version.split('.')[0]) >= 45)){
+		$(document).on('click', 'label[for]', function(e) {
+			if(e.currentTarget === this && e.target.nodeName !== 'INPUT') {
+				$(this.control).click();
+			}
+		});
+	}
+
+	//PIE.js適用
+	if(typeof PIE != 'undefined'){
+		//[TODO] いまのところIE8のみ。 initの順番変えてもイベントが効かなくなったりとか。（バグは出ないようになるが）
+		if($.browser.msie && /**/$.browser.version > 7  && $.browser.version < 9){
+			//[!] 各css1行目のpie使用しているセレクタが変われば変更の必要あり。
+			//[!] これからはpie使ったら追加していく方向で。130121
+			$('.pie, .btn, .rrect21, .mypage-nav, .rbadge18, .side-nav .head, .item-box-list li, .paging a, .text-section .rdrect, #buyBox .bb-footer .cart-body, .rh-block > header, .rh-block > .block-header, .crh-block > header, .crh-block > .block-header, .rh-block > .block-content, .crh-block > .block-content').each(function(){
+				PIE.attach(this);
+			});
+		}
+	}
+
+	//set designed selectForm.(no-init以外)
+	$("select:not(.no-init)").selectbox({
+		speed: Conf.selectOpenSpeed
+		// ,onOpen:function(instance){
+		// 	$.log('selectbox open.',instance,this);
+		// }
+	});
+	//set designed radio & checkbox.
+	$('input:radio:not(.no-init)').screwDefaultButtons({ 
+		image: "url("+Conf.PATH.img+"form-radio36.png)"
+		,width: 36
+		,height: 36
+	});
+	$('input:checkbox:not(.no-init)').screwDefaultButtons({ 
+		image: "url("+Conf.PATH.img+"form-checkbox36.png)"
+		,width: 36
+		,height: 36
+	});
+
+	//特集ブロックををタイリング
+	$('#topicsLauncher').freetile({
+		animate: false
+  });
+
+	/**
+	 * サイドナビにつける.active
+	 */
+	if(View.$sideNav.length){
+		var floc = ReqUtil.removeParamsAll(ReqUtil.getFullPath(location.href));
+		$('ul>li',View.$sideNav).each($.proxy(function(i,o){
+			var $li = $(o);
+			var $a = $('a',$li).eq(0);
+			var lnk = ReqUtil.removeParamsAll(ReqUtil.getFullPath($a.attr('href')));
+			// $.log(lnk,floc);
+			if(floc == lnk){
+				$li.addClass('active');
+				return false; //一個目にみつかったやつしかつけない。
+			}
+		},this));
+	}
+	
+	//itemlistの同じ行にあiる要素の高さ揃え(画像が入ってから？img指定しても良い？>cssで固定。
+	// $(".item-list.size-S.clm4 .item .detail").tile(4);
+	$(".item-list.size-M.clm3").each(function(){$('.item .detail',$(this)).tile(3);}); //top,ranking.
+	$(".item-list.size-S.clm4").each(function(){$('.item .detail',$(this)).tile(4);}); //一覧
+	var heightrank =  $('li > .rank').height(); //top,ranking.
+	$('li > .rank').css("height",heightrank); //top,ranking.
+	$('li > .rank').css("display","block"); //top,ranking.
+	//(>)リスト系
+	$(".arrow-list.column-size2").each(function(){$('> li',$(this)).tile(2);});
+	$(".arrow-list.column-size3").each(function(){$('> li',$(this)).tile(3);});
+	$(".arrow-list.column-size4").each(function(){$('> li',$(this)).tile(4);});
+
+
+	$(function(){
+		var win_width = window.innerWidth;
+		if (!win_width) win_width = document.body.clientWidth;
+		if ((viewflag == "defult" && 767 < win_width) || viewflag == "PC" || viewflag == "iPad" || viewflag == "Android tablet"  || viewflag == "IE8"){
+			// カテゴリList、高さ揃え
+			$(".arrow-list.column-size2").each(function(){$('> li',$(this)).tile(2);});
+			$(".arrow-list.column-size3").each(function(){$('> li',$(this)).tile(3);});
+			$(".arrow-list.column-size4").each(function(){$('> li',$(this)).tile(4);});
+			$(".item-list.size-M.clm3").each(function(){$('.item .detail',$(this)).tile(3);}); //top,ranking.
+			$(".item-list.size-S.clm4").each(function(){$('.item .detail',$(this)).tile(4);}); //一覧
+			var heightrank =  $('li > .rank').height(); //top,ranking.
+			$('li > .rank').css("height","42px"); //top,ranking.
+			$('li > .rank').css("display","block"); //top,ranking.
+		}else{
+			$('li > .rank').css("height","58px"); //top,ranking.
+			$('li > .rank').css("display","block"); //top,ranking.
+		}
+
+		var timer = false;
+		$(window).resize(function() {
+			var win_width = window.innerWidth;
+			if (!win_width) win_width = document.body.clientWidth;
+			if (timer !== false) {
+				clearTimeout(timer);
+			}
+			timer = setTimeout(function() {
+				var win_width = window.innerWidth;
+				if (!win_width) win_width = document.body.clientWidth;
+				$(".arrow-list.column-size2").each(function(){$('> li',$(this)).tile(2);});
+				$(".arrow-list.column-size3").each(function(){$('> li',$(this)).tile(3);});
+				$(".arrow-list.column-size4").each(function(){$('> li',$(this)).tile(4);});
+				if ((viewflag == "defult" && 767 < win_width) || viewflag == "PC" || viewflag == "iPad" || viewflag == "Android tablet"  || viewflag == "IE8"){
+					$('.item-list .item .detail').attr('style');
+					$(".item-list.size-M.clm3").each(function(){$('.item .detail',$(this)).tile(3);}); //top,ranking.
+					$(".item-list.size-S.clm4").each(function(){$('.item .detail',$(this)).tile(4);}); //一覧
+					var heightrank =  $('li > .rank').height(); //top,ranking.
+					$('li > .rank').css("height","42px"); //top,ranking.
+					$('li > .rank').css("display","block"); //top,ranking.
+				} else{
+					$('.item-list .item .detail').removeAttr('style');
+					$('li > .rank').css("height","58px"); //top,ranking.
+					$('li > .rank').css("display","block"); //top,ranking.
+				}
+				
+			}, 200);
+		});
+	});
+
+
+$(function(){
+	var flow7Height = $('.flow-nav.flow-7.showSp').height();
+	var win_width = window.innerWidth;
+	//var flowWidth = $(".flow-nav.flow-7").width();
+	if (28 < flow7Height){
+				$('.flow-nav.flow-7.showSp ol').css('margin-bottom','2px');
+				$('.flow-nav.flow-7.showSp ol + ol').css('margin-bottom','0');
+				$('.flow-nav.flow-7.showSp ol + ol').css('float','right');
+				$('.flow-nav.flow-7.showSp').css('background','#F2EEEA');
+				$('.flow-nav.flow-7.fin.showSp').removeClass('fin');
+				$('.flow-nav.flow-7.fin.showSp').css('background','#4B1E00');
+//	} else if (flow7Height > 52 && !get_spflag()) {
+	} else {
+				$('.flow-nav.flow-7.showSp ol').css('margin-bottom','0');
+				$('.flow-nav.flow-7.showSp ol + ol').css('margin-bottom','0');
+				$('.flow-nav.flow-7.showSp ol + ol').css('float','left');
+				$('.flow-nav.flow-7.showSp').css('background','#D2C7BF');
+				$('.flow-nav.flow-7.showSp ol').css('border-bottom','none');
+				$('.flow-nav.flow-7.showSp ol').css('border-top','none');
+				$('.flow-nav.flow-7.fin.showSp').addClass('fined');
+				$('.flow-nav.flow-7.fin.showSp.fined').css('background','#4B1E00');
+	}
+
+	var timer = false;
+	$(window).resize(function() {
+		if (timer !== false) {
+			clearTimeout(timer);
+		}
+		timer = setTimeout(function() {
+	var flow7Height = $('.flow-nav.flow-7.showSp').height();
+			var win_width = window.innerWidth;
+			var flowWidth = $(".flow-nav.flow-7").width();
+	if (28 < flow7Height){
+				$('.flow-nav.flow-7.showSp ol').css('margin-bottom','2px');
+				$('.flow-nav.flow-7.showSp ol + ol').css('margin-bottom','0');
+				$('.flow-nav.flow-7.showSp ol + ol').css('float','right');
+				$('.flow-nav.flow-7.showSp').css('background','#F2EEEA');
+				$('.flow-nav.flow-7.fin.showSp').removeClass('fin');
+				$('.flow-nav.flow-7.fin.showSp').css('background','#4B1E00');
+//	} else if (flow7Height > 52 && !get_spflag()) {
+	} else {
+				$('.flow-nav.flow-7.showSp ol').css('margin-bottom','0px');
+				$('.flow-nav.flow-7.showSp ol + ol').css('margin-bottom','0');
+				$('.flow-nav.flow-7.showSp ol + ol').css('float','left');
+				$('.flow-nav.flow-7.showSp').css('background','#D2C7BF');
+				$('.flow-nav.flow-7.showSp ol').css('border-bottom','none');
+				$('.flow-nav.flow-7.showSp ol').css('border-top','none');
+				$('.flow-nav.flow-7.fin.showSp').addClass('fined');
+				$('.flow-nav.flow-7.fin.showSp.fined').css('background','#4B1E00');
+			}
+		}, 200);
+	});
+});
+
+
+$(function(){
+	var flow5Height = $('.flow-navs.flow-5.showSp').height();
+	var win_width = window.innerWidth;
+	//var flowWidth = $(".flow-navs.flow-5").width();
+	if (28 < flow5Height){
+				$('.flow-navs.flow-5.showSp ol').css('margin-bottom','2px');
+				$('.flow-navs.flow-5.showSp ol').css('border','none');
+				$('.flow-navs.flow-5.showSp ol + ol').css('margin-bottom','0');
+				$('.flow-navs.flow-5.showSp ol + ol').css('float','right');
+				$('.flow-navs.flow-5.showSp').css('background','#F2EEEA');
+				$('.flow-navs.flow-5.fin.showSp').removeClass('fin');
+				$('.flow-navs.flow-5.fin.showSp').css('background','#4B1E00');
+//	} else if (flow7Height > 52 && !get_spflag()) {
+	} else {
+				$('.flow-navs.flow-5.showSp ol').css('margin-bottom','0');
+				$('.flow-navs.flow-5.showSp ol + ol').css('margin-bottom','0');
+				$('.flow-navs.flow-5.showSp ol + ol').css('float','left');
+				$('.flow-navs.flow-5.showSp').css('background','#D2C7BF');
+				$('.flow-navs.flow-5.showSp ol').css('border-bottom','none');
+				$('.flow-navs.flow-5.showSp ol').css('border-top','none');
+				$('.flow-navs.flow-5.fin.showSp').addClass('fined');
+				$('.flow-navs.flow-5.fin.showSp.fined').css('background','#4B1E00');
+	}
+
+	var timer = false;
+	$(window).resize(function() {
+		if (timer !== false) {
+			clearTimeout(timer);
+		}
+		timer = setTimeout(function() {
+	var flow5Height = $('.flow-navs.flow-5.showSp').height();
+			var win_width = window.innerWidth;
+			var flowWidth = $(".flow-navs.flow-57").width();
+	if (28 < flow5Height){
+				$('.flow-navs.flow-5.showSp ol').css('margin-bottom','2px');
+				$('.flow-navs.flow-5.showSp ol').css('border','none');
+				$('.flow-navs.flow-5.showSp ol + ol').css('margin-bottom','0');
+				$('.flow-navs.flow-5.showSp ol + ol').css('float','right');
+				$('.flow-navs.flow-5.showSp').css('background','#F2EEEA');
+				$('.flow-navs.flow-5.fin.showSp').removeClass('fin');
+				$('.flow-navs.flow-5.fin.showSp').css('background','#4B1E00');
+//	} else if (flow7Height > 52 && !get_spflag()) {
+	} else {
+				$('.flow-navs.flow-5.showSp ol').css('margin-bottom','0px');
+				$('.flow-navs.flow-5.showSp ol + ol').css('margin-bottom','0');
+				$('.flow-navs.flow-5.showSp ol + ol').css('float','left');
+				$('.flow-navs.flow-5.showSp').css('background','#D2C7BF');
+				$('.flow-navs.flow-5.showSp ol').css('border-bottom','none');
+				$('.flow-navs.flow-5.showSp ol').css('border-top','none');
+				$('.flow-navs.flow-5.fin.showSp').addClass('fined');
+				$('.flow-navs.flow-5.fin.showSp.fined').css('background','#4B1E00');
+			}
+		}, 200);
+	});
+});
+
+
+function get_spflag(){
+	var flag = 0;
+	var ua = navigator.userAgent;
+	
+	if (ua.indexOf('iPhone') != -1) {
+		flag = 1;	//iPhone
+	}else if ((ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0)){
+		flag = 1;	// Android
+	}else if((ua.indexOf('Android') > 0 && ua.indexOf('Mobile') == -1) || ua.indexOf('A1_07') > 0 || ua.indexOf('SC-01C') > 0 ){
+		flag = 1;	// Android tablet
+	}else if(ua.indexOf('iPad') != -1){
+		flag = 1;	// iPad
+	}
+	
+	return flag;
+}
+
+/*
+var linkTouchStart = function(){
+	thisAnchor = $(this);
+	touchPos = thisAnchor.offset().top;
+	moveCheck = function(){
+	nowPos = thisAnchor.offset().top;
+		if(touchPos == nowPos){
+			thisAnchor.addClass("hover");
+		}
+	}
+	setTimeout(moveCheck,50);
+}
+var linkTouchEnd = function(e){
+	thisAnchor = $(this);
+	hoverRemove = function(){
+		thisAnchor.removeClass("hover");
+		preventDefault();
+	}
+	setTimeout(hoverRemove,50);
+}
+
+$(document).on('touchstart mousedown','a',linkTouchStart);
+$(document).on('touchend mouseup','a',linkTouchEnd);
+*/
+	//スマホ表示：タッチイベント用class追加
+	/*
+	$("a").on('mousedown', function(e){
+		thisAnchor = $(this);
+		touchPos = thisAnchor.offset().top;
+		moveCheck = function(){
+			nowPos = thisAnchor.offset().top;
+			if(touchPos == nowPos){
+				thisAnchor.addClass("hover");
+			}
+		}
+		setTimeout(moveCheck,50);
+	});
+	//スマホ表示：タッチイベント用class削除
+	$("a").on('mouseup', function(e){
+		thisAnchor = $(this);
+		e.preventDefault();
+					e.preventDefault();
+		hoverRemove = function(){
+			thisAnchor.removeClass("hover");
+
+		}
+		setTimeout(hoverRemove,50);
+	});
+	*/
+	
+	//スマホ表示：タッチイベント用class追加
+	(function () {
+		var tapClass = "";
+		var hoverClass = "";
+
+		var Hover = window.Hover = function (ele) {
+			return new Hover.fn.init(ele);
+		};
+		Hover.fn = {
+			//Hover Instance
+			init : function (ele) {
+				this.prop = ele;
+			}
+ 
+			, bind : function (_hoverClass, _tapClass) {
+				hoverClass = _hoverClass;
+				tapClass = _tapClass;
+ 
+				$(window).bind("touchstart", function(event) {
+					var target = event.target || window.target;
+				
+					var bindElement = null;
+					if (target.tagName == "A" || $(target).hasClass(tapClass)) {
+						bindElement = $(target);
+					} else if ($(target).parents("a").length > 0) {
+						bindElement = $(target).parents("a");
+					} else if ($(target).parents("." + tapClass).length > 0) {
+						bindElement = $(target).parents("." + tapClass);
+					}
+				
+					if (bindElement != null) {
+						Hover().touchstartHoverElement(bindElement);
+					}
+				});
+			}
+			, touchstartHoverElement : function (bindElement) {
+				bindElement.addClass(hoverClass);
+				bindElement.unbind("touchmove", Hover().touchmoveHoverElement);
+				bindElement.bind("touchmove", Hover().touchmoveHoverElement);
+			
+				bindElement.unbind("touchend", Hover().touchendHoverElement);
+				bindElement.bind("touchend", Hover().touchendHoverElement);
+			}
+			, touchmoveHoverElement : function (event) {
+				$(this).removeClass(hoverClass);
+			}
+			, touchendHoverElement : function (event) {
+				$(this).removeClass(hoverClass);
+			}
+		}
+		Hover.fn.init.prototype = Hover.fn;
+ 
+	Hover().bind("hover", "a");
+}
+)();
+
+	//サイドナビゲーションがあるとき、右カラムと高さを揃える。
+	// $(".clm2-snav > .side-nav, .clm2-snav > .section-content").tile();
+	// $(".clm2-guide > .side-nav, .clm2-guide > .section-content").tile();
+	var $sn1 = $(".clm2-snav");
+	//静的ページのサイドナビ設定を定義
+	var $sn2 = $("#anniversary .clm2-snav");
+	$sn1.each(function(){$('> #naviTop .side-nav, > .section-content',$(this)).tile();});
+	$(".clm2-guide").each(function(){$('> .side-nav, > .section-content',$(this)).tile();});
+	var win_width = window.innerWidth;
+	if (!win_width) win_width = document.body.clientWidth;
+	if ((viewflag == "defult" && 767 < win_width) || viewflag == "PC" || viewflag == "iPad" || viewflag == "Android tablet"  || viewflag == "IE8"){
+		// Sp用右カラム高さ揃える
+		var $sn1 = $(".clm2-snav");
+		$sn1.each(function(){$('> #naviTop .side-nav, > .section-content',$(this)).tile();});
+		$(".clm2-guide").each(function(){$('> .side-nav, > .section-content',$(this)).tile();});
+	}
+
+$(function(){
+	var timer = false;
+	$(window).resize(function() {
+		if (timer !== false) {
+			clearTimeout(timer);
+		}
+		timer = setTimeout(function() {
+			win_width = window.innerWidth;
+			var $sn1 = $(".clm2-snav");
+			if ((viewflag == "defult" && 767 < win_width) || viewflag == "PC" || viewflag == "iPad" || viewflag == "Android tablet"  || viewflag == "IE8"){
+				// Sp用右カラム高さ揃える
+				$sn1.each(function(){$('> #naviTop .side-nav, > .section-content',$(this)).tile();});
+				$(".clm2-guide").each(function(){$('> .side-nav, > .section-content',$(this)).tile();});
+			} else {
+				$sn1.each(function(){$('> #naviBottom .side-nav, > .section-content',$(this)).removeAttr('style');});
+				$('.clm2-guide .section-content').removeAttr('style');
+				$('#naviBottom .side-nav').removeAttr('style');
+			}
+		}, 400);
+	});
+});
+
+	//[140919調整]サイドナビにバナーがある場合、画像が準備できたらもいっかい
+	// $.log($sn1.height());
+	var $bnrImgs = $(".img-bnr img",$sn1), bnrImgLoaded = 0;
+	$bnrImgs.each($.proxy(function(i,o){
+		$(o).on('load', $.proxy(function(e){
+			bnrImgLoaded++;
+			if($bnrImgs.length != bnrImgLoaded) return;
+			$.log('サイドナビのバナー画像準備完了！');
+			// $.log($sn1.height());
+			$sn1.each(function(){$('> #naviTop .side-nav, > .section-content',$(this)).tile();});
+			//静的ページのサイドナビとコンテンツの高さを揃える
+			$sn2.each(function(){$('> #naviTop .side-nav, > .anniversary .section-content',$(this)).tile();});
+		},this));
+	},this));
+
+	//sp対応
+	var win_width = window.innerWidth;
+	if (!win_width) win_width = document.body.clientWidth;
+	if ((viewflag == "defult" && 767 < win_width) || viewflag == "PC" || viewflag == "iPad" || viewflag == "Android tablet"  || viewflag == "IE8"){
+		// Sp用右カラム高さ揃える
+		var $bnrImgs = $(".img-bnr img",$sn1), bnrImgLoaded = 0;
+		$bnrImgs.each($.proxy(function(i,o){
+			$(o).on('load', $.proxy(function(e){
+				bnrImgLoaded++;
+				if($bnrImgs.length != bnrImgLoaded) return;
+				$.log('サイドナビのバナー画像準備完了！');
+				// $.log($sn1.height());
+				$sn1.each(function(){$('> #naviTop .side-nav, > .section-content',$(this)).tile();});
+				//静的ページのサイドナビとコンテンツの高さを揃える
+				$sn2.each(function(){$('> #naviTop .side-nav, > .anniversary .section-content',$(this)).tile();});
+			},this));
+		},this));
+	}
+
+
+	var timer = false;
+	$(window).resize(function() {
+		if (timer !== false) {
+			clearTimeout(timer);
+		}
+		timer = setTimeout(function() {
+			win_width = window.innerWidth;
+			if (!win_width) win_width = document.body.clientWidth;
+			var $sn1 = $(".clm2-snav");
+			if ((viewflag == "defult" && 767 < win_width) || viewflag == "PC" || viewflag == "iPad" || viewflag == "Android tablet"  || viewflag == "IE8"){
+				// Sp用右カラム高さ揃える
+					var naviHeighttop = $('.section-content').height();
+						$('#naviTop .side-nav').css("height",naviHeighttop);
+						$sn1.each(function(){$('> #naviTop .side-nav, > .section-content',$(this)).tile();});
+						//静的ページのサイドナビとコンテンツの高さを揃える
+						$sn2.each(function(){$('> #naviTop .side-nav, > .anniversary .section-content',$(this)).tile();});
+			} else {
+				$sn1.each(function(){$('> #naviBottom .side-nav, > .section-content',$(this)).removeAttr('style');});
+				//静的ページのサイドナビとコンテンツの高さをそれぞれの高さに設定するためにstyleを削除
+				$sn2.each(function(){$('> #naviTop .side-nav, > .anniversary .section-content',$(this)).removeAttr('style');});
+				var naviHeightbottom = $('#naviBottom .side-nav').height();
+				$('#naviBottom .side-nav').css("height",naviHeightbottom);
+			}
+		}, 400);
+	});
+
+	//pagetopの挙動
+	// var aScrollTop = new AnimScrollTop();
+	$('.pagetop > a').on('click',function(e){
+		$.preventDefault(e);
+		new AnimScrollTop().to();
+		return false;
+	});
+
+	//電話
+	$(function() {
+		if (!isPhone())
+		return;
+		$('span[data-action=call]').each(function() {
+			var $ele = $(this);
+			$ele.wrap('<a href="tel:' + $ele.data('tel') + '"></a>');
+		});
+	});
+
+	function isPhone() {
+		return (navigator.userAgent.indexOf('iPhone') > 0 || navigator.userAgent.indexOf('Android') > 0);
+	}
+
+
+	//ページ内リンクの設定
+	$(function(){
+		$('.pagelink >a[href^=#]').click(function(){
+			var speed = 400;
+			var href= $(this).attr("href");
+			var target = $(href == "#" || href == "" ? 'html' : href);
+			var position = target.offset().top;
+			$("html, body").animate({scrollTop:position}, speed, "swing");
+			return false;
+		});
+	});
+
+	$(function() {
+		$('span[data-action=page]').each(function() {
+			var $ele = $(this);
+			$ele.wrap('<a href="' + $ele.data('page') + '"></a>');
+		});
+	});
+
+	var timer = false;
+	$(window).resize(function() {
+		if (timer !== false) {
+			clearTimeout(timer);
+		}
+		timer = setTimeout(function() {
+			win_width = window.innerWidth;
+			if (!win_width) win_width = document.body.clientWidth;
+			if ((viewflag == "defult" && 767 < win_width) || viewflag == "PC" || viewflag == "iPad" || viewflag == "Android tablet"  || viewflag == "IE8"){
+				if (!escapeflag){
+					$('span[data-action=page]').each(function() {
+						var $ele = $(this);
+						$ele.wrap('<a href="' + $ele.data('page') + '"></a>');
+					});
+				}
+			} else{
+				if (!escapeflag){
+					$('span[data-action=page]').each(function() {
+						var $ele = $(this);
+						$ele.wrap('<a href="' + $ele.data('page') + '"></a>');
+					});
+				}
+			}
+		}, 400);
+	});
+
+	$(window).load(function(){
+		$('span[data-action=page]').each(function() {
+			var $ele = $(this);
+			$ele.wrap('<a href="' + $ele.data('page') + '"></a>');
+			
+		});
+	});
+
+	//css追加
+	$(function() {
+		if (!escapeflag){
+			$('.sp-section-header h2.acc').on('click',function(){
+				$(this).toggleClass('opened');
+			});
+		}
+	});
+
+	$('.total_price .itemadd_button').on('click',function(){
+		$(this).toggleClass('opened');
+	});
+
+	//アコーディオン
+$(function() {
+    $('span[data-action=slide]').each(function() {
+        var $ele = $(this);
+        $ele.wrap('<a href="' + $ele.data('slide') + '"></a>');
+    });
+});
+
+$(function() {
+    $('span[data-action=slidebtn]').each(function() {
+        var $ele = $(this);
+        $ele.wrap('<a href="' + $ele.data('slidebtn') + '"></a>');
+    });
+});
+
+
+
+$(function() {
+    $('span[data-action=slidebtn2]').each(function() {
+        var $ele = $(this);
+        $ele.wrap('<a href="' + $ele.data('slidebtn2') + '"></a>');
+    });
+});
+
+$(function() {
+    $('span[data-action=slidebtn3]').each(function() {
+        var $ele = $(this);
+        $ele.wrap('<a href="' + $ele.data('slidebtn3') + '"></a>');
+    });
+});
+
+$(function() {
+    $('span[data-action=slidebtn4]').each(function() {
+        var $ele = $(this);
+        $ele.wrap('<a href="' + $ele.data('slidebtn4') + '"></a>');
+    });
+});
+
+$(function() {
+    $('span[data-action=closeBtn]').each(function() {
+        var $ele = $(this);
+        $ele.wrap('<a href="' + $ele.data('closeBtn') + '"></a>');
+    });
+});
+
+
+//テンプレート「かんたんショッピングガイド」
+$(function(){
+	if (!escapeflag){
+		$(".guide_item h2").on("click", function() {
+		$(this).toggleClass("opened");
+		$(this).next('p').slideToggle(100, 'swing');
+		});
+	}
+});
+
+//テンプレート「商品を探す」
+$(function(){
+	if (!escapeflag){
+		$("#slideBoxsearch_sp").css("display","none");
+		$(".slideBoxsearch").on("click", function() {
+		$("#slideBoxsearch_sp").slideToggle(100, 'swing');
+		});
+	}
+});
+
+//テンプレート「ご利用ガイド」
+$(function(){
+	if (!escapeflag){
+		$("#slideBoxguide_sp").css("display","none");
+		$(".slideBoxguide").on("click", function() {
+		$("#slideBoxguide_sp").slideToggle(100, 'swing');
+		});
+	}
+});
+
+//cartt.html テンプレート「商品を探す」
+//checkout_01.html 登録済みのお届け先一覧
+$(function(){
+	//$("#slideBox_sp").css("display","none");
+	if (!escapeflag){
+		$("#slideBox_sp").hide;
+		$(".slidebtn").on("click", function() {
+		$("#slideBox_sp").slideToggle(100, 'swing');
+		});
+	}
+});
+
+//
+$(function(){
+	$("#slideBox0_sp").css("display","none");
+	$(".slidebtn0").on("click", function() {
+	$("#slideBox0_sp").slideToggle(100, 'swing');
+	});
+});
+
+//
+$(function(){
+	$("#slideBox1_sp").css("display","none");
+	$(".slidebtn1").on("click", function() {
+	$("#slideBox1_sp").slideToggle(100, 'swing');
+	});
+});
+
+//checkout_01.html その他の住所に送る
+//checkout_m01.html その他の住所に送る
+//cart.html 商品を追加する
+$(function(){
+	//$("#slideBox2_sp").css("display","none");
+	//$("#slideBox2_sp").hide();
+	if (!escapeflag){
+		$(".slidebtn2").on("click", function() {
+		$("#slideBox2_sp").slideToggle(100, 'swing');
+		});
+	}
+});
+
+//checkout_01.html 旧字・異体字の方へ
+//checkout_m01.html 旧字・異体字の方へ
+//item_catalog.html このページの使い方
+$(function(){
+	//$("#slideBox3_sp").css("display","none");
+	if (!escapeflag){
+		$("#slideBox3_sp").hide;
+		$(".slidebtn3").on("click", function() {
+		$("#slideBox3_sp").slideToggle(100, 'swing');
+		});
+	}
+});
+
+//checkout_01.html 海外発送について
+//checkout_m01.html 海外発送について
+$(function(){
+	//$("#slideBox4_sp").css("display","none");
+	if (!escapeflag){
+		$("#slideBox4_sp").hide;
+		$(".slidebtn4").on("click", function() {
+		$("#slideBox4_sp").slideToggle(100, 'swing');
+		});
+	}
+});
+
+//
+$(function(){
+	$("#slideBox5_sp").css("display","none");
+	$(".slidebtn5").on("click", function() {
+	$("#slideBox5_sp").slideToggle(100, 'swing');
+	});
+});
+
+//signup_02.html いきいきお客様番号とは？
+$(function(){
+	//$("#membership_number_sp").css("display","none");
+	if (!escapeflag){
+		$("#membership_number_sp").hide;
+		$(".membership_number").on("click", function() {
+		$("#membership_number_sp").slideToggle(100, 'swing');
+		});
+	}
+});
+
+//signup_02.html 個人情報保護方針
+$(function(){
+	//$("#privacy_policy").css("display","none");
+	if (!escapeflag){
+		$("#privacy_policy").hide;
+		$(".privacy_policy").on("click", function() {
+			$("#membership_agreement").slideUp(100, 'swing');
+			$("#privacy_policy").slideToggle(100, 'swing');
+		});
+	}
+});
+
+//signup_02.html 個人情報保護方針
+$(function(){
+	//$("#privacy_policy2").css("display","none");
+	if (!escapeflag){
+		$("#privacy_policy2").hide;
+		$(".privacy_policy2").on("click", function() {
+			$("#membership_agreement2").slideUp(100, 'swing');
+			$("#privacy_policy2").slideToggle(100, 'swing');
+		});
+	}
+});
+
+
+//signup_02.html 会員規約
+$(function(){
+	//$("#membership_agreement").css("display","none");
+	if (!escapeflag){
+		$("#membership_agreement").hide;
+		$(".membership_agreement").on("click", function() {
+			$("#privacy_policy").slideUp(100, 'swing');
+			$("#membership_agreement").slideToggle(100, 'swing');
+		});
+	}
+});
+
+//signup_02.html 会員規約
+$(function(){
+	//$("#membership_agreement2").css("display","none");
+	if (!escapeflag){
+		$("#membership_agreement2").hide;
+		$(".membership_agreement2").on("click", function() {
+			$("#privacy_policy2").slideUp(100, 'swing');
+			$("#membership_agreement2").slideToggle(100, 'swing');
+		});
+	}
+});
+
+$(function(){
+	$(".hidden-menu a").on("click", function() {
+	$("#slideBoxsearch_sp").slideUp(100, 'swing');
+	});
+});
+
+$(function(){
+	$(".hidden-menu span").on("click", function() {
+	$("#slideBoxsearch_sp").slideUp(100, 'swing');
+	});
+});
+
+$(function(){
+	$(".closebtnsearch").on("click", function() {
+	$("#slideBoxsearch_sp").slideUp(100, 'swing');
+	});
+});
+
+$(function(){
+	$(".closebtnguide").on("click", function() {
+	$("#slideBoxguide_sp").slideUp(100, 'swing');
+	});
+});
+
+$(function(){
+	$(".closebtn").on("click", function() {
+	$("#slideBox_sp").slideUp(100, 'swing');
+	});
+});
+
+	
+$(function(){
+	$(".closebtn2").on("click", function() {
+	$("#slideBox2_sp").slideUp(100, 'swing');
+	});
+});
+
+$(function(){
+	$(".closebtn3").on("click", function() {
+	$("#slideBox3_sp").slideUp(100, 'swing');
+	});
+});
+
+$(function(){
+	$(".closebtn4").on("click", function() {
+	$("#slideBox4_sp").slideUp(100, 'swing');
+	});
+});
+
+
+$(function(){
+	$(".closebtn5").on("click", function() {
+	$("#slideBox5_sp").slideUp(100, 'swing');
+	});
+});
+
+$(function(){
+	$(".mnclosebtn").on("click", function() {
+	$("#membership_number_sp").slideUp(100, 'swing');
+	});
+});
+
+$(function(){
+	$(".membershipclosebtn").on("click", function() {
+	$("#membership_agreement").slideUp(100, 'swing');
+	});
+});
+
+$(function(){
+	$(".membershipclosebtn2").on("click", function() {
+	$("#membership_agreement2").slideUp(100, 'swing');
+	});
+});
+
+$(function(){
+	$(".privacyclosebtn").on("click", function() {
+	$("#privacy_policy").slideUp(100, 'swing');
+	});
+});
+
+$(function(){
+	$(".privacyclosebtn2").on("click", function() {
+	$("#privacy_policy2").slideUp(100, 'swing');
+	});
+});
+
+	//SP用マイページメニュー高さ揃え
+	$(function(){
+		var pnBodyList = $(".mypage-nav .pn-body li").eq(2).height();
+		$(".mypage-nav .pn-body li a").tile();
+
+		/*if(pnBodyList < 80){
+			$(".mypage-nav .pn-body li a").eq(0).css("line-height", (pnBodyList -14) + "px");
+		}*/
+	});
+
+	$(function(){
+		$("#merit_sp h3").tile();
+	});
+
+	$(function(){
+	var win_width = window.innerWidth;
+	if (!win_width) win_width = document.body.clientWidth;
+	if (767 < win_width){
+		//var pnBodyList = $(".mypage-nav .pn-body li a").height();
+		$(".mypage-nav .pn-body li a").tile();
+	}
+
+	var timer = false;
+	$(window).resize(function() {
+		if (timer !== false) {
+			clearTimeout(timer);
+		}
+		timer = setTimeout(function() {
+			//var pnBodyList = $(".mypage-nav .pn-body li a").height();
+			$(".mypage-nav .pn-body li a").tile();
+		}, 200);
+	});
+
+	});
+
+	//pagetop@modal用
+	$('.modal .pagetop > a').off('click');
+	$(document).on('click','.modal .pagetop', function(e){
+		$.preventDefault(e);
+		new AnimScrollTop($(e.target).closest('.modal-body')).to(0);
+		return false;
+	});
+
+	//page内ナビ,.tabtopの挙動
+	$('.page-nav .pn-body a, .tabtop > a, .clm2-guide .side-nav .active .sub-list a, a.anchor').on('click',function(e){
+		$.preventDefault(e);
+		new AnimScrollTop().to(ReqUtil.getAnchor($(e.target).attr('href')));
+		return false;
+	});
+
+	//page内ナビ@modal用
+	$('.modal a.anchor').off('click');
+	$(document).on('click','.modal a.anchor', function(e){
+		$.preventDefault(e);
+		new AnimScrollTop($(e.target).closest('.modal-body'))
+			.to(ReqUtil.getAnchor($(e.target).attr('href')));
+		return false;
+	});
+
+
+
+	/**
+	 * tooltips
+	 */
+	//普通のtooltip
+	$('[rel=tooltip]').tooltip();
+	View.$manualTooltips = $('[rel=tooltip][data-trigger=manual]');
+	View.$manualTooltips.each(function(i,o){
+		var $o = $(o);
+		if($o.hasClass('show'))$o.tooltip("show");
+	});
+	//マウス追従型ツールチップ
+	$('[rel="fixed-tooltip"]').each(function(i,o){
+		new FixedTooltip($(o));
+	});
+
+	/**
+	 * modal関連初期化。
+	 */
+	View.modal = new MiscModal();
+	View.reqmodal = new ReqModal();
+	$(document).on('click.reqmodal.data-api'
+		,'[data-toggle="reqmodal"]'
+		,function(e){
+			View.reqmodal.calleeToggle(e,this);
+	});
+	
+	//表示前に中央揃え
+	$(document).on('show','.modal',function(e){
+		var marginV = 20;
+		var $m = $(this);
+		var md = $m.data('modal');
+		var shown = md.isShown;
+		var $mb = $('.modal-body',$m);
+		if(!shown) $m.show();
+		$m.css({'top':'0%'});
+		$mb.css({
+			'max-height':'none'
+			,'height':'auto'
+		});
+		var otherHeights = $m.outerHeight()-$mb.height();
+		$mb.css('max-height',(View.wh-otherHeights+marginV));
+		$m.css({
+			'top':'50%'
+			,'margin-top':(-1*($m.outerHeight())/2)
+		});
+		if(!shown) $m.hide();
+	});
+
+
+	/**
+	 * tableに.odd,.evenをつける。
+	 */
+	View.setTableOddEven();
+
+	/**
+	 * リサイズ
+	 */
+	View.$w.bind('resize',View.windowResize_);
+	View.$w.trigger('resize'); //一回やっとく。
+
+	/**
+	 * hashchangeイベントのバインド
+	 */
+	View.$w.bind("hashchange",View.hashchange_);
+	
+
+	//historyBack(form内のみ)
+	View.initForm.formBack();
+
+	/**
+	 * miscForm([★] CSSのmisc-formクラス指定があるもののみ初期化。)
+	 */
+	$('form.misc-form').each(function(i,o){
+		// View.$body.prepend('misc-form'+i+'こめ<br>'+o.action)
+		// try{
+		var helper = new FormHelper($(o));
+		var num_selector = '.num-input';
+
+		if(helper.$alltexts.length){
+			//num-inputはフィルタかける
+			helper.addFilter(num_selector,FormHelper.FILTER_TYPE.HALF_NUMBER,'remove');
+			//空のチェック
+			helper.attachEmptyCheck(function(empties){
+				if(empties.length && empties[0] instanceof jQuery){
+					empties[0].trigger('focus');
+				}
+			},true);
+		}
+
+		helper.setSelectedValues(); //selectedの初期値設定はdefaultValue設定前に！
+		helper.setDefaults();
+		// }catch(e){
+		// 	$.err('.misc-form の new FormHelper() でエラー',e)
+		// }
+	});
+
+
+	/**
+	 * 各ページのinitがあるとき実行
+	 */
+	View.initPage && View.initPage();
+
+	/**
+	 * location.hashがあるときはhashchange実行
+	 */
+	location.hash && View.$w.trigger("hashchange");
+
+	if(!View.waitInitPage) View.onInitAll();
+
+};//end initAll();
+
+
+View.windowResize_ = function(){
+	var ww = View.ww = View.$w.width();
+	var wh = View.wh = View.$w.height();
+
+	// //modal用縦センター揃えリサイズ
+	// $('.modal').each($.proxy(function(i,o){
+	// 	var $m = $(o);
+	// 	// var otherHeight = $('.modal-header,.modal-footer',$m).height();
+	// 	var $mb = $('.modal-body',$m);
+	// 	$mb.css({
+	// 		'max-height':'none'
+	// 		,'height':'auto'
+	// 	});
+	// 	var otherHeights = $m.outerHeight()-$mb.height();
+	// 	$mb.css('max-height',(wh-otherHeights-30));
+	// 	$m.css('margin-top',(-1*($m.outerHeight())/2));
+	// 	// $.log($mb.css('max-height'),$m.css('margin-top'));
+	// },this));
+};
+
+/**
+ * 汎用ハッシュチェンジ時の受け皿
+ * @param  {[type]} e [description]
+ * @return {[type]}   [description]
+ */
+View.hashchange_ = function(e){
+	$.log('[EVENT] hash changed.',"location.hash =>",location.hash);
+
+	//個別ページで設定しているhashchange関数を呼ぶ。
+	if(typeof View.hashchangePage == 'function') View.hashchangePage(e);
+};
+
+/**
+ * table.oddevenにクラスをつける。何回でも通しても大丈夫なように。
+ */
+View.setTableOddEven = function($t){
+	if(!($t instanceof jQuery))$t = View.$body;
+	$('.oddeven tr',$t).removeClass('odd even');
+	// $('.oddeven tr:odd',$t).addClass('even');
+	// head抜きをするために.oddeven毎にする。
+	$('.oddeven',$t).each(function(){
+		// var $this = $(this);
+		//:evenがindexが偶数のものと一致するので逆に。
+		// $('tr:even',$this).addClass('odd');
+		// $('tr:odd',$this).addClass('even');
+		var idx = 0;
+		$('tr',$(this)).each(function(){
+			var $_this = $(this);
+			//.headクラスが付いているtrは無視
+			if($_this.hasClass('head'))return true;
+			if(idx % 2 === 0){
+				$_this.addClass('odd');
+			}else{
+				$_this.addClass('even');
+			}
+			idx+=1;
+		});
+	});
+};
+
+/**
+ * セレクトボックス初期化用のobj
+ * @type {Object}
+ */
+View.selectboxInitObj = {
+	speed: Conf.selectOpenSpeed
+	,onOpen:function(sb){//開き始めに、現在選択中のoptionをscrollTop()する
+		var sv,$sbopt,$list,$li,$a
+			,$select = $(this)
+			,$optsel = $(':selected',$select)
+			,$sbh = $select.next('div.sbHolder') //holder.
+		;
+		if($optsel.length){
+			if($optsel.length>1) $optsel = $optsel[0];
+			sv = $optsel.val(); //：selectedのvalを取得
+			$sbopt = $('.sbOptions',$sbh);
+			//最初に上に戻しておく（2回連続で開いた時対策）
+			$sbopt.scrollTop(0);
+			// $list = $('li',$sbopt);
+			// maxh = 0;
+			// $list.each(function(i,o){
+			// 	maxh+=$(o).height();
+			// })
+			$li = $('li > a[rel="'+sv+'"]',$sbopt).parent();
+			// $.log($sbh,$li.position().top,$sbopt.height())//,maxh);
+			var pt = ($li.length >= 1 && typeof $li.eq(0).position == 'function') ? $li.eq(0).position().top : 0;
+			// li一個分一番上よりずらす（選択中の値より前がないように見えるため）
+			$sbopt.scrollTop(pt - $li.height());
+		}
+	}
+}
+/**
+ * 在庫表示のフィルタ
+ * @type {Object}
+ */
+View.stockBadge = {
+	html:{
+		many:'<mark class="icon ico-ex badge-stock2">在庫あり</mark>'
+		,less:'<mark class="icon ico-ex badge-stock1">残りわずか</mark>'
+		,empty:'<mark class="icon ico-ex badge-stock0">在庫なし</mark>'
+	}
+	,get:function(stockcnt){
+		// Conf.stockCnt.less
+		if(stockcnt <= Conf.stockCnt.empty){
+			return View.stockBadge.html.empty;
+		}else if(stockcnt <= Conf.stockCnt.less){
+			return View.stockBadge.html.less;
+		}
+		return View.stockBadge.html.many;
+	}
+};
+
+
+/**
+ * エラー監視用クラス
+ * .errorが入ったりしたら、
+ * 基本的にテーブル内？
+ */
+View.ErrorObserver = Class.extend({
+	/**
+	 * @param  {String} parentsSelector .errorを探す元。ない場合$(document)
+	 * @param  {Boolean} scrollEnables   最初に見つかったエラーにスクロールさせるか。:true 
+	 * @param  {[type]} tableMode       def:true テーブルじゃない場合はView.ErrorObserver.ATTR_WRAPPERを指定しておけばいいか。
+	 * @return {[type]}                 [description]
+	 */
+	init:function(parentsSelector,scrollEnables){
+		// this.$targets = [];
+		this.parentsSelector = parentsSelector || '';
+		this.$ = this.parentsSelector ? $(this.parentsSelector) : $(document);
+		this.scrollEnables = typeof scrollEnables == 'undefined' ? true : false;
+		// this.tableMode = typeof tableMode == 'undefined' ? true : false;
+		this.targets = [];
+		this.attach();
+	}
+
+	,kill:function(){
+		this.detach();
+		// delete this;
+	}
+
+	,reflesh:function(){
+		this.kill();
+		this.init();
+	}
+
+	/**
+	 * ★htmlで検知しているので、全く同じ内容のhtmlが登録されている場合は挙動がおかしくなる恐れあり。
+	 * @param  {[type]} $err [description]
+	 * @return {[type]}      [description]
+	 */
+	,getTarget:function($err){
+		if($err && $err.length){
+			var ehtm = $err.outerHtml();
+			for (var i = this.targets.length - 1; i >= 0; i--) {
+				if(this.targets[i].$err.outerHtml() == ehtm) return this.targets[i];
+			}
+		};
+		return false;
+	}
+
+	/**
+	 * .errorに背景を追加してスクロール
+	 * @param  {[type]} $err 明示的に指定されればそれのみ背景追加+スクロール？
+	 * @param {Boolean} scrollEnables def:this.scrollEnables()>true
+	 * @return {[type]}         
+	 */
+	,attach:function($err,scrollEnables){
+		scrollEnables = typeof scrollEnables == 'undefined' ? this.scrollEnables:false;
+		var fT = [];
+		if($err && $err.length){
+
+			$err.each($.proxy(function(i,o){
+				$e = $(o);
+				//指定あり
+				var t = this.getTarget($e);
+				if(!t){
+					//登録されていない場合、新規登録
+					t = new View.ErrorObserveTarget($e,this.targets.length);
+					this.targets.push(t);
+					fT.push(t);
+				}else{
+					$.log('View.ErrorObserver::attach() 既に登録されているターゲットが渡されました。',this.targets,' $e:',$e);
+				}
+			},this));
+		}else{
+			//全部の.errorに。
+			//全部追加前には一回kill?
+			// this.detach();
+			$('.'+View.ErrorObserver.KLASS_ERROR,this.$).each($.proxy(function(i,o){
+				this.targets.push(new View.ErrorObserveTarget($(o),i));
+			},this));
+			// if(this.targets.length>0) fT = this.targets[0];
+			fT = this.targets;
+		}
+			//スクロールする？中身があるもので最初のやつに。（背景色変えた場合は背景の開始位置）
+			if(scrollEnables){// && fT && fT.enabled){
+				if (viewflag !== "PC" && window.innerWidth < 768){
+					var ckstart = 0;
+				}else{
+					var ckstart = fT.length / 2;
+				}
+	
+				for (var i = ckstart; i < fT.length; i++) {
+					var t = fT[i];
+					if(t.enabled){
+						var scrollTarget = t.$wrapper.length ? t.$wrapper : t.$err;
+						new AnimScrollTop().to(scrollTarget.offset().top);
+						break;
+					}
+				}
+			}
+	}
+
+	/**
+	 * $errの指定オブジェクトがない場合は全て。
+	 * @param  {[type]} $target [description]
+	 * @return {[type]}         [description]
+	 */
+	,detach:function($err){
+		if($err && $err.length){
+			//指定あり
+			$err.each($.proxy(function(i,o){
+				var $e = $(o);
+				var t = this.getTarget($e);
+				if(t){
+					this.targets.splice(t.id,1);
+					t.kill();
+				}else{
+					$.err('View.ErrorObserver::detach() 指定されたターゲットがthis.targets[]から見つかりませんでした。this.targets:',this.targets,' $e:',$e);
+				}
+			},this));
+		}else{
+			for (var i = this.targets.length - 1; i >= 0; i--) {
+				this.targets[i].kill();
+			}
+			this.targets = [];
+		}
+	}
+});
+View.ErrorObserver.EVT = {
+	REMOVE:'View.ErrorObserver.remove'
+};
+View.ErrorObserver.ATTR_WRAPPER = 'data-error-wrapper';//ラッピング用
+View.ErrorObserver.KLASS_ERROR = 'error';
+View.ErrorObserver.KLASS_ERROR_BG = 'error-bg';
+View.ErrorObserver.KLASS_HIDE = 'hide';
+View.ErrorObserveTarget = Class.extend({
+	init:function($err,id){
+		var selector;
+		this.$err = $err;
+		this.id = id;
+		selector = this.$err.attr(View.ErrorObserver.ATTR_WRAPPER) || '';
+		this.text = $.trim(this.$err.text());
+		if(selector){
+			//エラーを囲むセレクタが指定されている時
+			this.$wrapper = $(selector);
+		}else{
+			//セレクタ指定がないときは直近のtr
+			if (viewflag !== "PC" && window.innerWidth < 768){
+				// SPの場合
+				if ($('.checkout_form_wrapper').length){
+					this.$wrapper = this.$err.closest('.checkout_form_wrapper');
+				}else if ($('.signup_form_wrapper').length){
+					this.$wrapper = this.$err.closest('.signup_form_wrapper');
+				}else if ($('.delivery_form_wrapper').length){
+					this.$wrapper = this.$err.closest('.delivery_form_wrapper');
+					this.$wrapper = this.$err.closest('.table-style');
+				}else if ($('.table-area').length){
+					this.$wrapper = this.$err.closest('.table-style');
+				}else{
+					this.$wrapper = this.$err.closest('.text-section-sp');
+				}
+			}else{
+				this.$wrapper = this.$err.closest('tr');
+			}
+		}
+		//中身があるときのみenabled.無いときは要素を隠す
+		if(!this.text){
+			this.enabled = false;
+			this.$err.addClass(View.ErrorObserver.KLASS_HIDE);
+		}else{
+			this.$err.removeClass(View.ErrorObserver.KLASS_HIDE);
+			if(this.$wrapper.length){
+				// SPの場合
+				if (viewflag !== "PC" && window.innerWidth < 768){
+					if ($('.addaccordion').length){
+						$("#slideBox2_sp").show();
+						$('.addaccordion').show();
+					}else if ($('.popmodal_sp').length){
+						$('.popmodal_sp').show();
+						$('.accordion_wrap').hide();
+					}
+				}
+				this.$wrapper.addClass(View.ErrorObserver.KLASS_ERROR_BG);
+			}
+			this.enabled = true;
+		}
+		//動的に消されたらcssClass除去？
+		// this.$err.on('delete',$.proxy(function(e){this.$wrapper.removeClass('error-bg');},this));
+	}
+	,kill:function(){
+		if(this.$wrapper.length){
+			this.$wrapper.removeClass(View.ErrorObserver.KLASS_ERROR_BG);
+		}
+		this.enabled = false;
+		this.$err.removeClass(View.ErrorObserver.KLASS_HIDE);
+	}
+});
+
+
+
+/**
+ * 汎用的にできるフォーム関連の初期化fncセット
+ * @type {Object}
+ */
+View.initForm = {}
+/**
+ * 会員情報入力の初期化。
+ * @param  {[type]} helper        FormHelper
+ * @param  {[type]} noSetDefaults さいごにhelper.setDefaults()する？
+ * @param  {[type]} isSp        mobileDevice用フラグ
+ */
+View.initForm.addresses = function(helper, noSetDefaults, isSp){
+	var _sfx = isSp ? '_sp': '';
+
+	//生年月日用
+	helper.initDateSelects('#birthdayYearSelect'+_sfx,'#birthdayMonthSelect'+_sfx,'#birthdayDaySelect'+_sfx,'－',1900,new Date().getFullYear(),false,false);
+	//40年前の年を選択（既に data-selected-value が入ってない時のみ）
+	var $yearSelect = $('#birthdayYearSelect'+_sfx);
+	if(!$yearSelect.attr(helper.attr_selectedValue)){
+		$yearSelect.attr(helper.attr_selectedValue, new Date().getFullYear()-Conf.defBirthdayYearSelectDiff)
+	}
+
+	
+	//全角必須
+	helper.addFilter('.htof-input',FormHelper.FILTER_TYPE.HALF_TO_FULL);
+
+	//カナ
+	helper.addFilter('.kana-input',FormHelper.FILTER_TYPE.FULL_KANA);
+	
+	//数値
+	helper.addFilter('.num-input',FormHelper.FILTER_TYPE.HALF_NUMBER,'remove');
+
+	//zipcode系
+	// helper.addFilter('#zipCodeInput',FormHelper.FILTER_TYPE.HALF_NUMBER,'remove');
+	var $zip = $('#zipCodeInput'+_sfx,helper.$)
+	,$prefs_rep = $('.prefs-replacement'+_sfx,helper.$)
+	,$pref = $('#prefHidden'+_sfx,helper.$)
+	,$city = $('#cityHidden'+_sfx,helper.$)
+	,$addr1 = $('#address1Input'+_sfx,helper.$)
+	,$addr2 = $('#address2Input'+_sfx,helper.$)
+	,tmp_zip = ''
+	,prefs_repDef = $prefs_rep.text()
+	// ,allAddressInputsChangeFn = $.proxy(function(){
+	// 	$.log('allAddressInputsChangeFn')
+	// })
+	,sidz = []
+	,chkInputChange = function(){
+		this.newVal = $(this).val();
+		if(typeof this.oldVal != 'undefined' && this.oldVal !== this.newVal){
+			this.trigger('change');
+			// $.log('住所入力のうちどれかに変更があった。'+this.newVal);
+		}
+		this.oldVal = this.newVal;
+	}
+	,cityChangeFn = $.proxy(function(){
+		// $.log('cityChangeFn')
+		var pv = $pref.val()
+			,cv = $city.val()
+		;
+		if(pv && cv){
+			$prefs_rep
+				.removeClass('off')
+				.text(pv+" "+cv);
+		}else{
+			$prefs_rep
+				.addClass('off')
+				.text(prefs_repDef);
+		}
+	},this)
+	;
+	//市区町村input（置換用/隠してる）のonChange
+	$city.on('change',cityChangeFn);
+	//全てのzipに関係するaddrinput変更時
+	// $pref.on('change',allAddressInputsChangeFn);
+	// $city.on('change',allAddressInputsChangeFn);
+	// $addr1.on('change',allAddressInputsChangeFn);
+	// $addr2.on('change',allAddressInputsChangeFn);
+
+	//hiddenFieldのchangeイベントチェックはintervalで回すしかないのかしら。
+	$zip.on('focus',$.proxy(function(){
+		if(sidz.length){
+			for (var i = sidz.length - 1; i >= 0; i--) {
+				clearInterval(sidz[i]);
+			};
+			sidz = [];
+		}
+		sidz.push(setInterval($.proxy(chkInputChange,$pref),300));
+		sidz.push(setInterval($.proxy(chkInputChange,$city),300));
+		// sidz.push(setInterval($.proxy(chkInputChange,$addr1),300));
+		// sidz.push(setInterval($.proxy(chkInputChange,$addr2),300));
+	},this));
+	// $zip.on('blur',$.proxy(function(){clearInterval(chkHiddenSid);},this));
+	// $zip.on('blur',$.proxy(function(){
+	// },this));
+	// $zip.on('keyup',$.proxy(function(){
+	// 	if(!$zip.val()){}
+	// },this));
+
+
+	// helper.addAddressAutoFill('#zipCodeInput',$pref.attr('name'),$city.attr('name'));
+	helper.addAjaxZip3('#zipCodeInput'+_sfx
+		,null
+		,$pref.attr('name')
+		,$city.attr('name')
+		,$('#address1Input'+_sfx,helper.$).attr('name')
+		,$('#address2Input'+_sfx,helper.$).attr('name')
+		// ,'keyup blur'
+		// ,0
+	);
+	// $.log("View.initForm.addresses:helper.addAjaxZip3 >>> "
+	// 	,$pref.attr('name')
+	// 	,$city.attr('name')
+	// 	,$('#address1Input',helper.$).attr('name')
+	// 	,$('#address2Input',helper.$).attr('name'))
+
+	//値が入っている場合もあるので一回だけやっておく。
+	cityChangeFn();
+
+	/*
+	///zipcode系 sp用
+	// helper.addFilter('#zipCodeInput_sp',FormHelper.FILTER_TYPE.HALF_NUMBER,'remove');
+	var $zipsp = $('#zipCodeInput_sp',helper.$)
+	,$prefs_repsp = $('.prefs-replacement_sp',helper.$)
+	,$prefsp = $('#prefHidden_sp',helper.$)
+	,$citysp = $('#cityHidden_sp',helper.$)
+	,$addr1sp = $('#address1Input_sp',helper.$)
+	,$addr2sp = $('#address2Input_sp',helper.$)
+	,tmp_zip = ''
+	,prefs_repDef = $prefs_repsp.text()
+	// ,allAddressInputsChangeFn = $.proxy(function(){
+	// 	$.log('allAddressInputsChangeFn')
+	// })
+	,sidz = []
+	,chkInputChange = function(){
+		this.newVal = $(this).val();
+		if(typeof this.oldVal != 'undefined' && this.oldVal !== this.newVal){
+			this.trigger('change');
+			// $.log('住所入力のうちどれかに変更があった。'+this.newVal);
+		}
+		this.oldVal = this.newVal;
+	}
+	,cityChangeFn = $.proxy(function(){
+		// $.log('cityChangeFn')
+		var pv = $prefsp.val()
+			,cv = $citysp.val()
+		;
+		if(pv && cv){
+			$prefs_repsp
+				.removeClass('off')
+				.text(pv+" "+cv);
+				$('input#address1Input_sp').toggleClass('placeholders');
+		}else{
+			$prefs_repsp
+				.addClass('off')
+				.text(prefs_repDef);
+		}
+	},this)
+	;
+	//市区町村input（置換用/隠してる）のonChange
+	$citysp.on('change',cityChangeFn);
+	//全てのzipに関係するaddrinput変更時
+	// $prefsp.on('change',allAddressInputsChangeFn);
+	// $citysp.on('change',allAddressInputsChangeFn);
+	// $addr1sp.on('change',allAddressInputsChangeFn);
+	// $addr2sp.on('change',allAddressInputsChangeFn);
+
+	//hiddenFieldのchangeイベントチェックはintervalで回すしかないのかしら。
+	$zipsp.on('focus',$.proxy(function(){
+		if(sidz.length){
+			for (var i = sidz.length - 1; i >= 0; i--) {
+				clearInterval(sidz[i]);
+			};
+			sidz = [];
+		}
+		sidz.push(setInterval($.proxy(chkInputChange,$prefsp),300));
+		sidz.push(setInterval($.proxy(chkInputChange,$citysp),300));
+		// sidz.push(setInterval($.proxy(chkInputChange,$addr1sp),300));
+		// sidz.push(setInterval($.proxy(chkInputChange,$addr2sp),300));
+	},this));
+	// $zipsp.on('blur',$.proxy(function(){clearInterval(chkHiddenSid);},this));
+	// $zipsp.on('blur',$.proxy(function(){
+	// },this));
+	// $zipsp.on('keyup',$.proxy(function(){
+	// 	if(!$zip.val()){}
+	// },this));
+
+
+	// helper.addAddressAutoFill('#zipCodeInput_sp',$prefsp.attr('name'),$citysp.attr('name'));
+	helper.addAjaxZip3('#zipCodeInput_sp'
+		,null
+		,$prefsp.attr('name')
+		,$citysp.attr('name')
+		,$('#address1Input_sp',helper.$).attr('name')
+		,$('#address2Input_sp',helper.$).attr('name')
+		// ,'keyup blur'
+		// ,0
+	);
+	// $.log("View.initForm.addresses:helper.addAjaxZip3 >>> "
+	// 	,$prefsp.attr('name')
+	// 	,$citysp.attr('name')
+	// 	,$('#address1Input_sp',helper.$).attr('name')
+	// 	,$('#address2Input_sp',helper.$).attr('name'))
+
+	//値が入っている場合もあるので一回だけやっておく。
+	cityChangeFn();
+	*/
+
+	//mail
+	// helper.addFilter('#emailInput',FormHelper.FILTER_TYPE.EMAIL,'remove');
+
+	if(!noSetDefaults){
+		helper.setSelectedValues();
+		helper.setDefaults();
+	}
+
+	//$.selectboxの再初期化
+	// $('select',helper.$).selectbox('detach').selectbox('attach');
+	//:selectedの中央選択テスト
+	$('select',helper.$).selectbox('detach').selectbox(View.selectboxInitObj);
+};
+
+
+
+/***   スマートフォン用     *****/
+
+View.initForm.addressesSp = function(helper_sp,noSetDefaults){
+
+	//生年月日用
+	helper_sp.initDateSelects('#birthdayYearSelect','#birthdayMonthSelect','#birthdayDaySelect','－',1900,new Date().getFullYear(),false,false);
+	//40年前の年を選択（既に data-selected-value が入ってない時のみ）
+	var $yearSelect = $('#birthdayYearSelect');
+	if(!$yearSelect.attr(helper_sp.attr_selectedValue)){
+		$yearSelect.attr(helper_sp.attr_selectedValue, new Date().getFullYear()-Conf.defBirthdayYearSelectDiff)
+	}
+	
+	//全角必須
+	helper_sp.addFilter('.htof-input',Formhelper_sp.FILTER_TYPE.HALF_TO_FULL);
+
+	//カナ
+	helper_sp.addFilter('.kana-input',Formhelper_sp.FILTER_TYPE.FULL_KANA);
+	
+	//数値
+	helper_sp.addFilter('.num-input',Formhelper_sp.FILTER_TYPE.HALF_NUMBER,'remove');
+
+	//mail
+	// helper_sp.addFilter('#emailInput_sp',Formhelper_sp.FILTER_TYPE.EMAIL,'remove');
+
+	if(!noSetDefaults){
+		helper_sp.setSelectedValues();
+		helper_sp.setDefaults();
+
+	}
+
+	//$.selectboxの再初期化
+	// $('select',helper_sp.$).selectbox('detach').selectbox('attach');
+	//:selectedの中央選択テスト
+	$('select',helper_sp.$).selectbox('detach').selectbox(View.selectboxInitObj);
+};
+
+
+/**
+ * onChangeで見た目をリフレッシュさせる必要のあるセレクトボックス群へのイベント追加。
+ * ユーザーの選択した値によって他のセレクトボックスが連動する日付選択などに。
+ * ※ グループ名はちゃんとつけないと、グループ内の対象selectboxが余りに増えると処理重になる。
+ * ※ イベントの順番に左右される部分があるため、必ずformHelperのinit+setSelectedValuesあとに実行させる。(FormHelperのイベント全部にnamespaceつけたら大丈夫そうだが
+ * @param  {[type]} $parent 対象を内包するjqObj
+ * @return {[type]}         [description]
+ */
+View.initForm.dynamicRefleshSelect = function( $parent ){
+	$('select.'+View.initForm.REF_SELBOX_KLASS, $parent || View.$body ).each(function(i,o){
+		var $o = $(o);
+		$o
+		.off('change.dynamicRefleshSelect')
+		.on('change.dynamicRefleshSelect',function(){
+			var $sel = $(this);
+			var ATTR_ = View.initForm.REF_SELBOX_ATTR_GROUP;
+			var gn = $sel.attr(ATTR_);
+			$sel.selectbox("detach").selectbox(View.selectboxInitObj);//まず自分
+			if(gn){
+				//グループ名があるとき、自分以外のグループ全部に対してselectbox()
+				var $groups = $('select['+ATTR_+'='+gn+']');
+				$groups.each(function(j,go){
+					var $go = $(go);
+					if($go[0] != $sel[0]) $go.selectbox("detach").selectbox(View.selectboxInitObj);
+				})
+			}
+		});
+	});
+};
+View.initForm.REF_SELBOX_KLASS = 'reflesh-select';
+View.initForm.REF_SELBOX_ATTR_GROUP = 'data-select-group';
+
+//パスワードを見るボタン
+View.initForm.showHidePassword = function($pwInput,$btn){
+	$btn.on('click',$.proxy(function(e){
+		//typeは変更できないのでhtml拾って文字列置換しないといけない。
+		// var t = $pwInput.attr('type');
+		// var toggleOn = false;
+		// if(t == 'text'){$btn.removeClass('toggle-on')}else{$btn.addClass('toggle-on');}
+		// $pwInput.attr('type',t == 'text' ? 'password':'text');
+	},this))
+}
+
+//form内にある「前のページに戻る」用
+View.initForm.formBack = function(){
+	var $aa = $('form a.form-back');
+	var click_ = function(e){
+		var $a,$form,k,helper,v = true;
+		$.preventDefault(e);
+		$a = $(e.target);
+		if($a.get(0).tagName.toLowerCase() !== 'a')$a = $a.closest('a');
+		k = $a.attr('name');
+		$a.attr('name','');//名前空間がかぶるから消しとく。
+		// v = $a.attr('data-post-value');
+		// if(!v)v = true;
+		$form = $a.closest('form');
+		if(!$form.length){
+			$.err('View.initForm.formBack() : 親となるformが見つかりません。');
+			return;
+		}
+		if(!k){
+			$.err('View.initForm.formBack() : aにname属性が設定されていません。');
+			return;
+		}
+		helper = $form.data('FormHelper');
+		if(!helper){
+			$.log('formにはhelperが設定されていません。');
+		}else{
+			helper.unsetDefaults();
+		} 
+		$form.append('<input type="hidden" name="'+k+'" value="'+v+'">');
+		$form.trigger('submit');
+	}
+	$aa.on('click',$.proxy(click_,this));
+}
+
+
+/**
+ * DOMにshow()hide()でcssクラスを付与し、opcityのanimate
+ */
+var ShowHideSprite = Class.extend({
+	$:null
+	,shownFD:false
+	,duration:320
+	/**
+	 * INIT
+	 * @param  {[type]} $target          [description]
+	 * @param  {[type]} duration         アニメーションduration.
+	 * @param  {[type]} shownFirstDetect 最初の状態で表示するかどうか。
+	 * @return {[type]}                  [description]
+	 */
+	,init:function($target,duration,shownFirstDetect){
+		this.$ = $target;
+		this.duration = typeof duration != "undefined" ? duration : 320;
+		this.shownFD = typeof(shownFirstDetect) !='undefined' ? shownFirstDetect : shownFD;
+		this.$.animate({opacity:0},0);
+		if(this.shownFD)
+			this.show();
+	}
+	,show:function(d){
+		this.$
+			.addClass('show')
+			.animate({opacity:1},{
+				duration:typeof d != "undefined" ? d : this.duration
+				,easing:'linear'
+				,queue:false})
+		;
+	}
+	,hide:function(d){
+		this.$
+			.removeClass('show')
+			.animate({opacity:0},{
+				duration:typeof d != "undefined" ? d : this.duration
+				,easing:'linear'
+				,queue:false})
+		;
+	}
+});
+
+/**
+ * SpinnerControler(showHide)
+ * var s = new SpinnerControler();
+ * s.show($(target));
+ * s.hide(); -> 消す
+ * s.show(); -> 前に指定したtargetにshow
+ * @type {[type]}
+ */
+var SpinnerControler = Class.extend({
+	$:null
+	,$t:null //target
+	,s:null //Spinner
+	,opt:{
+		dashes: 21,
+		radius: 11,
+		width: 1.1,
+		height: 6,
+		opacity: 1,
+		padding: 0,
+		rotation: 700,
+		color: '#4A1E04'
+	}
+	,init:function(opt,$targ,centering){
+		if(typeof opt == "object"){
+			//obj設定されているもののみ
+			for(var i in opt){
+				this.opt[i] = opt[i];
+			}
+		}else if(typeof opt == "string"){
+			this.setSize(opt);
+		}
+		this.$ = $('<span class="spinner"></span>');
+		this.$.css({
+			'display':'inline-block'
+			,'*display':'inline'
+			,'*zoom':1
+		});
+		if(typeof centering == 'boolean') this.centering = centering;
+		if($targ && $targ.length) this.$t = $targ;
+	}
+	,setSize:function(size){
+		var newopt = {};
+		switch(size){
+			case "L": newopt = {dashes:39,radius:32,height:8}; break;
+			case "M": newopt = {dashes:29,radius:17,height:7}; break;
+			case "S": newopt = {dashes:23,radius:11,height:6}; break;
+		}
+		for(var i in newopt) this.opt[i] = newopt[i];
+	}
+	,show:function($targ){
+		if($targ && $targ.length) this.$t = $targ;
+		if(!this.$t){
+			$.log("[!] SpinnerControler :: Spinner表示先targetが指定されていません。 bodyをtargetにします。");
+			this.$t = $('body');
+		}
+
+		// this.s = new Spinner(this.opt).spin(this.$t.get(0));
+		this.s = Spinners.create(this.$.get(0),this.opt);
+		this.s.play();
+		if(this.centering) this.doCentering_();
+		this.$t.prepend(this.$);
+		// this.$t.prepend($(this.s.el));
+		return this;
+	}
+	,hide:function(){
+		if(typeof this.s == 'undefined') return this;
+		// this.s.stop();
+		// $(this.s.el).remove();
+		// delete this.s;
+		this.s.pause();
+		this.releaseCentering_();
+		this.$.remove();
+		return this;
+	}
+	,centering:false
+	,centeringFlg:false
+	,preprop_targ:{}
+	,preprop_s:{}
+	,doCentering_:function(){
+		if(this.centeringFlg) return;
+		this.preprop_targ['text-align'] = this.$t.css('text-align');
+		this.$t.css({
+			'text-align':'center'
+		});
+		this.preprop_s['margin'] = this.$.css('margin');
+		this.$.css({
+			'margin':'0 auto'
+		});
+		this.centeringFlg = true;
+	}
+	,releaseCentering_:function(){
+		if(!this.centeringFlg) return;
+		this.$t.css({
+			'text-align':this.preprop_targ['text-align']
+		});
+		this.$.css({
+			'margin':this.preprop_s['margin']
+		});
+		this.centeringFlg = false;
+	}
+});
+
+
+/**
+ * 動的Modalテンプレ
+ * @require bootstrap-modal.js
+ */
+var MiscModal = Class.extend({
+	$:null
+	,$title:null
+	,$body:null
+	,centering:true
+	,size:'M'
+	,labelId:''
+	,labelIdPref:'miscModalLabel'
+	,backdropEnables:true
+	,htm:''
+	+'<div id="modal1" class="modal size-M hide fade" tabindex="-1" role="dialog" aria-labelledby="miscModalLabel" aria-hidden="true">'
+	+'	<div class="modal-header">'
+	+'		<button type="button" class="btn btn-baige close" data-dismiss="modal" aria-hidden="true"><i class="icon ico-ex btn16-cross-0">×</i><span class="text tx-btn s16-close">閉じる</span></button>'
+	+'		<h3 id="miscModalLabel">&nbsp;</h3>'
+	+'	</div>'
+	+'	<div class="modal-body"><div class="modal-body-iwrap">&nbsp;</div></div>'
+	//+'	<div class="modal-footer"><button type="button" class="btn btn-baige close showSp" data-dismiss="modal" aria-hidden="true"><i class="icon ico-ex btn16-cross-0">×</i><span class="text tx-btn s16-close">閉じる</span></button></div>'
+	+'</div>'
+	,isShown:false
+
+	/**
+	 * @param  {[type]} centering       中央揃えを実行するか。def:true
+	 * @param  {[type]} backdropEnables 背景を表示する？def:true
+	 * @param  {[type]} labelId         attr : aria-labelledby
+	 * @return {[type]}                 [description]
+	 */
+	,init:function(centering,backdropEnables,labelId){
+		MiscModal.InstanceCnt++;
+		this.$ = $(this.htm);
+		$('body').append(this.$);
+
+		this.$title = $('.modal-header > h3',this.$);
+		this.$bodyIWrap = $('.modal-body-iwrap',this.$);
+		this.$body = $('.modal-body',this.$);
+
+		if(typeof centering != 'undefined') this.centering = centering;
+		if(typeof backdropEnables != 'undefined') this.backdropEnables = backdropEnables;
+		if(typeof labelId == 'undefined') this.labelId = this.labelIdPref + MiscModal.InstanceCnt;
+		// $.log(this.labelId,this.centering,this.backdropEnables)
+		//本家modal用イベントを追加?
+		this.$
+			.on('show',$.proxy(function(){this.isShown = true;},this))
+			.on('hide',$.proxy(function(){this.isShown = false;},this))
+		;
+		//初期化
+		// this.$.modal({'backdrop':this.backdropEnables});
+		this.setId();
+
+		// $('.misc-modal-close',this.$).bind('click',$.proxy(function(e){
+		// 	$.preventDefault(e);
+		// 	this.hide();
+		// 	return false;
+		// },this));
+	}
+
+
+	/**
+	 * 設定して表示。基本何も渡さなくても表示OK.
+	 * @param  {String} title     String(or HTML)
+	 * @param  {String} content   .modal-bodyのhtml.
+	 * @param  {String} size      "S|M|L"
+	 * @param  {Boolean} errorMode エラー表示？default:false
+	 * @return {[type]}           this
+	 */
+	,show:function(title,content,size,errorMode){
+		if(this.isShown){
+			this.hide();//modal('hide');
+			this.isShown = false;
+		}
+		this.setSize(size ? size : this.size);
+		this.setContents(title,content);
+		//if(typeof errorMode != 'undefined');
+		this.setError(errorMode);
+		// this.$.modal('show');
+		// remoteは常にoff(reqmodalとかでhref=""がある時、変な挙動をするので)
+		this.$.modal({
+			'backdrop':this.backdropEnables
+			,'remote':false
+		});
+		this.$.trigger(MiscModal.EVT.SHOW);
+		this.isShown = true;
+		return this;
+	}
+
+	,hide:function(){
+		if(!this.isShown) return;
+		this.$.modal('hide');
+		this.$.trigger(MiscModal.EVT.HIDE);
+		this.isShown = false;
+		return this;
+	}
+
+	,setContents:function(title,content,errorMode){
+		if(typeof title == "string" || content instanceof jQuery){
+			this.$title.html(title);
+		}
+		if(typeof content == "string" || content instanceof jQuery){
+			this.$bodyIWrap.html(content);
+		}
+		if(errorMode == true) this.setError(errorMode);
+	}
+
+	/**
+	 * modalの矩形指定
+	 * @param  {[type]} size "S|M|L".default is "M"
+	 * @param {[type]} error [description]
+	 * @return {[type]}      [description]
+	 */
+	,setSize:function(size){
+		switch(size){
+			case 'S':
+			case 'M':
+			case 'M2':
+			case 'L':
+				this.unsetSize();
+				this.size=size;
+				this.$.addClass('modal-size-'+this.size);
+				//中央揃えする
+				if(this.centering) this.setPosition();
+			break;
+		}
+	}
+	,unsetSize:function(){
+		this.$.removeClass('modal-size-S modal-size-M modal-size-M2 modal-size-L');
+	}
+
+	,setError:function(bool){
+		this.$.removeClass('error-modal');
+		if(bool){
+			this.$.addClass('error-modal');
+		}
+	}
+
+	,setId:function(id){
+		if(typeof id != 'undefined') this.labelId = id;
+		this.$.attr('aria-labelledby',this.labelId);
+		this.$title.attr('id',this.labelId);
+	}
+
+	,setPosition:function(){
+		// $.log("MiscModal.setPosition::");
+		var marginV = 30;
+		var ww = $(window).width();
+		var wh = $(window).height();
+		this.$.show();
+		this.$.css({'top':'0%'});
+		this.$body.css({
+			'max-height':'none'
+			,'height':'auto'
+		});
+		var otherHeights = this.$.outerHeight()-this.$body.height();
+		this.$body.css('max-height',(wh-otherHeights-marginV));
+		
+		this.$.css({
+			'top':'50%'
+			,'margin-top':(-1*(this.$.outerHeight())/2)
+		});
+
+		//既に開いている場合はdiaplay:block;
+		if(this.isShown) this.$.show();
+	}
+
+});
+MiscModal.InstanceCnt = 0;
+MiscModal.EVT = {
+	SHOW:'modalShow'
+	,HIDE:'modalHide'
+};
+
+/**
+ * リクエストを伴うmodal
+ * @type {[type]}
+ */
+var ReqModal = MiscModal.extend({
+	init:function(){
+		this._super();
+		this.spinner = new SpinnerControler('S');
+	}
+	,url:''
+	,attr_modal_size:'data-modal-size'
+	,attr_page_title:'data-modal-title'//無いときはtarget.text()
+	,attr_parts_selector:'data-modal-parts' // data-modal-parts = ".taco > #nama" など
+	,spinner:null
+	/**
+	 * $(document).on('click.miscmodal.data-api', '[data-toggle="miscmodal"]',function(e){new MiscModal().calleeToggle(e,this);});
+	 * なんかで呼ばれた時。thisは第二引数に引き継ぐ。
+	 * @param  {[type]} e [description]
+	 * @return {[type]}   [description]
+	 */
+	,calleeToggle:function(e,calleeScope){
+		var $callee = $(calleeScope);
+		$.preventDefault(e);
+		this.url = $callee.get(0).href;
+
+		//★タイトルや読み込み先のセレクタ設定は data-modal-* attr優先
+		this.page_title = $callee.attr(this.attr_page_title) || $callee.text() || '&nbsp;';
+		this.parts_selector = $callee.attr(this.attr_parts_selector) || ReqUtil.getAnchor(this.url) || false;
+		var resize = $callee.attr(this.attr_modal_size);
+		if(resize) this.setSize(resize);
+
+		// this.$.modal({'remote':$callee.href});
+		// modal内spinnerを表示
+		this.spinner.show(this.$bodyIWrap);
+
+		this.show(this.page_title); //modalの中身を設定
+		// this.setPosition(); //ポジション直し
+		//読み込み
+		$.ajax({
+			//#や?以下は除去して一意なurlで読む。
+			url:ReqUtil.makeUniqueUrl(ReqUtil.removeParams(this.url))
+			,dataType:'html'
+			,success:$.proxy(this.onLoad_,this)
+			,error:$.proxy(this.onError_,this)
+		});
+	}
+	,onLoad_:function(html){
+		// [TODO]読み込んだhtm内のパス書き換えどうしましょ
+		this.$htm = ReqUtil.html5str2jqo(html);
+		this.spinner.hide();
+		
+		$.log('ReqModal:ページの読み込みが完了しました。\n	url :', this.url);
+		$.log('	selector:',this.parts_selector);
+		$.log('	$(selector,$(html)):', this.$htm);
+		
+		if(this.parts_selector !== false){
+			this.setContents(this.page_title,$(this.parts_selector,this.$htm));
+		}else{
+			this.setContents(this.page_title,this.$htm);
+		}
+		this.setPosition();//配置修正
+	}
+	,onError_:function(){
+		this.spinner.hide();
+		this.setContents('通信エラー','<p>&quot;'+this.url+'&quot;の読み込みに失敗しました。</p>',true);
+	}
+});
+
+
+/**
+ * エラー表示関連のメソッドを持つクラス拡張用
+ */
+var AjaxErrorImpl = Class.extend({
+	api:'url'
+	,ajax_error_:function(xhr,stat,errThrown){
+		this.showError('リクエストエラー','<p>&quot;'+this.api+'&quot; の読み込みに失敗しました。</p>');
+		$.log('AjaxErrorImpl::ajax_error_ :',xhr,stat,errThrown);
+	}
+	/**
+	 * View.Modal上でのエラー表示。ない場合はconsoleに出力
+	 * @param  {[type]} title        [description]
+	 * @param  {[type]} content      [description]
+	 * @param  {[type]} disableModal [description]
+	 * @return {[type]}              [description]
+	 */
+	,showError:function(title,content,disableModal){
+		if(View.modal && !disableModal){
+			View.modal.show(title,content,'S',true);
+		}else{
+			$.log(title,content);
+		}
+	}
+	/**
+	 * 埋め込みエラー表示
+	 * @param  {[type]} content htmlも可。ただ、先頭にインライン要素の<i>が入るため、ボックス要素入れると改行します。
+	 * @param  {[type]} $target [description]
+	 * @param {[type]} removeBefore 前に表示してたエラー（全部）消す
+	 * @return {[type]}         [description]
+	 */
+	,showInlineError:function(content,$target,removeBefore){
+		if(removeBefore && this.$inlineError && this.$inlineError.length){
+			this.$inlineError.remove();
+			this.$inlineError = $([]);
+		}
+		if(!this.$inlineError){
+			this.$inlineError = $([]);
+		}
+		// var $e = $('<p>').addClass('error error-box hide small'); //最初は消す?。
+		var $e = $('<p>').addClass('error error-box small'); //動的に出すやつだから消さなくていいか。
+		$e.append($('<i>').addClass('icon ico-ex caution14 mr-g1'));
+		$e.append(content);
+		$target.append($e);
+		this.$inlineError.push($e);
+		$.log('CatalogForm.Rows::showInlineError() ',this.$inlineError);
+		return $e;
+	}
+	,showListError:function(content,$target,removeBefore){
+		if(removeBefore && this.$listError && this.$listError.length){
+			this.$listError.remove();
+			this.$listError = $([]);
+		}
+		if(!this.$listError){
+			this.$listError = $([]);
+		}
+		var $ul = $('<ul>').addClass('error error-box small');
+		var liz = [];
+		if(!$.isArray(content))content = [content];
+		for (var i = 0; i < content.length; i++) {
+			liz.push('<li>'+content[i]+'</li>');
+		};
+		$ul.append(liz.join());
+		$target.append($ul);
+		this.$listError.push($ul);
+		$.log('CatalogForm.Rows::showListError() ',this.$listError);
+		return $ul;
+	}
+});
+
+/**
+ * エラーmodal付きjson用loaderクラス
+ * @type {[type]}
+ */
+View.SimpleJsonLoader = AjaxErrorImpl.extend({
+	init:function(jsonurl){
+		this.api = jsonurl;
+	}
+	,load:function(jsonurl){
+		if(jsonurl)this.api = jsonurl;
+		$.ajax({
+			url:ReqUtil.makeUniqueUrl(this.api)
+			,dataType:'json'
+			,type:Conf.ajaxMeth
+			,success:$.proxy(this.success_,this)
+			,error:$.proxy(this.ajax_error_,this)
+		});
+	}
+	,success:null
+	,success_:function(dat){
+		this.dat = dat;
+		if(typeof this.success === "function")this.success(dat);
+	}
+});
+
+/**
+ * 商品DB用クラスimpl。必要ライブラリ検査のためinit時this._super();してください。
+ * @type {[type]}
+ */
+var ItemDBImpl = AjaxErrorImpl.extend({
+	dat:{}//json
+	,db:{
+		"error":{
+			"title":"エラーハンドリング"
+			,"content":"このerrorオブジェクトがある場合はエラー内容が表示されるようにします。"
+		}
+		,"item":{
+			"name":""
+			,"permalink":""
+			,"thumb":""
+			,"display_price":""
+			,"discount_rate":""
+			,"regular_price":""
+		}
+		,"column":{
+			"label":[
+				"color"
+				,"size"
+			]
+			,"label_name":[
+				"色"
+				,"サイズ"
+			]
+		}
+		,"options":{
+			"color":[
+				{
+					"uid":"1"
+					,"num":""
+					,"name":""
+				}
+			]
+			,"size":[
+				{
+					"uid":"1"
+					,"num":""
+					,"name":""
+				}
+			]
+		}
+		,"stock":[
+			{
+				"color":"1"
+				,"size":"1"
+				,"stock":0
+			}
+		]
+	}
+
+
+	//qty以外の選択した値が入る。{"color":color.uid}とか
+	,optSelectedNow:null
+	
+	,init:function(){
+		this.dat = {};
+		if(!TAFFY){$.err('ItemDBImpl::init()','taffy.jsが必要です。');}
+		if(!JSON || JSON && typeof JSON.parse != 'function'){$.err('ItemDBImpl::init()','IE7以降はjson2.jsが必要です。');}
+	}
+	
+	
+	// this.datの正当性検査
+	,_validData:function(){
+		return this.dat && this.dat.column && this.dat.options && this.dat.stock ? true : false;
+	}
+
+	,clmlen:0,stocklen:0,allStockCnt:0
+	/**
+	 * stock用db初期化。dataが帰ってきたらやる。
+	 * @return {[type]} [description]
+	 */
+	,stockDBInit:function(){
+		var i,label;
+		//★データベースは参照渡しなので都度初期化する。
+		this.db = {};
+		// $.log(this.dat);//this.db.stock);
+		this.db.stock = TAFFY(this.dat.stock); //[XXX] >>> IEでエラー吐いてた。完全になおってない。
+		$.log(this.db.stock().select("stock"));
+
+		this.db.options = {};//new Object();
+
+
+		//繰り返し用に
+		this.clmlen = this.dat.column.label.length;
+		this.stocklen = this.dat.stock.length;
+		
+		//options準備
+		for (i = 0; i < this.clmlen; i++) {
+			label = this.dat.column.label[i];
+			this.db.options[label] = TAFFY(this.dat.options[label]);
+		}
+
+		//全在庫があるかどうか
+		var stocks = this.db.stock().select("stock");
+		this.allStockCnt = 0;
+		for (i = stocks.length - 1; i >= 0; i--) {
+			this.allStockCnt+=Number(stocks[i]);
+		}
+		$.log("全在庫数：",this.allStockCnt);
+	}
+	
+	,dbGetOptCache:[]
+
+	//option[label]からuidを取得？select()でもいいか。
+	,dbGetOpt:function(label,uid){
+		if(!this._validData())return {};
+		var i,opts = this.dat.options[label],r;
+		for (i = opts.length - 1; i >= 0; i--) {
+			if(opts[i].uid === uid){
+				r = opts[i];
+				// this.dbGetOptCache.push() //キャッシュはしない？
+				break;
+			}
+		}
+		return r || {};
+	}
+
+	//<select> > <option>に追加するuid用要素。
+	,attr_uid:'data-unique-id'
+
+	,dbGetSelectOptionHtm:function(label){
+		// return this.db.options[label]().supplant('<option value="{num}" '+this.attr_uid+'="{uid}">{name}({num})</option>');
+		// return this.db.options[label]().supplant('<option value="{uid}" '+this.attr_uid+'="{uid}">{name}({num})</option>'); 
+		// (opt.num)はいらない。
+		return this.db.options[label]().supplant('<option value="{uid}" '+this.attr_uid+'="{uid}">{name}</option>');
+	}
+});
+
+/**
+ * ItemDBImplを継承した商品データ表示関連のクラス
+ * @type {[type]}
+ */
+var ItemSelectView = ItemDBImpl.extend({
+	setAllView:function(){
+		if(!this.db.stock) return false;
+		return true;
+	}
+
+	/**
+	 * selectboxが有効かどうか(値があるかどうか)検査
+	 * @param  {[type]} column_label [description]
+	 * @return {[type]}              [description]
+	 */
+	,optEnables:function(column_label){
+		return this.dat.options[column_label] && this.dat.options[column_label].length;
+	}
+	/**
+	 * selectboxを表示しない場合のチェック。
+	 * selectboxが有効であったときでも、値が1個で且つ値の名称が空か"-"だったときtrue
+	 * @param  {[type]} column_label [description]
+	 * @return {[type]}              [description]
+	 */
+	,optHasOneEmptyNameField:function(column_label){
+		var ln = this.dat.options[column_label][0].name;
+		return this.dat.options[column_label] && this.dat.options[column_label].length == 1 && (Boolean(ln) === false || ""+ln === '-');
+	}
+
+	,optSelectedNow:{}
+
+	/**
+	 * ぶん投げたselectboxのoption値をhtmlにして拾う。
+	 * AddToCartクラスでカートに入れた後setView()、.item-boxの内容置換などで使用
+	 * @return {[type]} [description]
+	 */
+	,getPostedOptionsHtml:function(){
+		// var fmt='<p class="options">色：<em>黒(06)</em>, サイズ：<em>S(01)</em></p>'
+		// this.joinedStocks(this.optSelectedNow)
+		var htm_arr = [],l,uid,clmidx,hn,q,name,num;
+		for(l in this.optSelectedNow){
+			if(!this.optEnables(l) || !this.optSelectedNow[l]) continue;
+			uid = this.optSelectedNow[l];
+			clmidx = ArrayUtil.indexOf(this.dat.column.label,l);
+			hn = clmidx === -1 ? '' : this.dat.column.label_name[clmidx];
+			q = this.db.options[l]({'uid':uid});
+			name = q.select('name').toString();
+			// num = q.select('num').toString();
+			// $.log(q.select('name').toString(),''+q.select('name'),clmidx);
+			// q.length
+			// if(!name || !num) continue;
+			if(!name) continue;
+			// htm_arr.push(hn+'：<em>'+name+'('+num+')</em>');
+			htm_arr.push(hn+'：<em>'+name+'</em>');
+		}
+		return htm_arr.join(', ');
+	}
+});
+
+
+// マウス位置に追従するBootstrapTooltipのExtend
+// !function($){
+	var FixedTooltip = Class.extend({
+		$target:null
+		,$parent:null
+		,$container:null
+		,tooltip:null
+		,isSupportTouch: !!("createTouch" in document)
+		,zindex:9999
+		,opt_def:{
+			trigger: 'manual',
+			placement: 'top'
+		}
+
+		,init:function($target,$parent){
+			this.$container = $('<div class="bs-tooltip-container">');
+			this.$container.css({
+				'position':'absolute'
+				,'z-index':this.zindex
+				// ,'height':4
+				// ,'width':4
+				// ,'margin-top':-2
+				// ,'margin-left':-2
+				// ,'background':'#0f0'
+			});
+			this.$target = $target;
+			this.$parent = $parent && $parent.length ? $parent : $('body');
+			this.$parent.append(this.$container);
+			// this.$target.on('mouseover', $.proxy(this.show_,this));
+			// this.$target.on('mouseout', $.proxy(this.hide_,this));
+			// this.$target.on('mouseenter', $.proxy(this.show_,this));
+			// this.$target.on('mouseleave', $.proxy(this.hide_,this));
+			// $.log('(new FixedTooltip()).$target :',this.$target)
+			if(this.isSupportTouch){
+				this.$target.on('touchstart.FixedTooltip', $.proxy(this.show_,this));
+			}else{
+				this.$target.on('mouseenter.FixedTooltip', $.proxy(this.show_,this));
+				this.$target.on('mouseleave.FixedTooltip', $.proxy(this.hide_,this));
+			}
+			// this.setContainerPos_ = $.proxy(this.setContainerPos__,this);
+			this.$container.tooltip($.extend({},{
+				'title':this.$target.attr('data-original-title') || this.$target.attr('title')
+			},this.opt_def));
+		}
+		,setContainerPos_:null
+		,setContainerPos__:function(e){
+			// $.log(e);
+			// this.$container.css({
+			// 	top:e.pageY-5
+			// 	,left:e.pageX
+			// });
+		}
+		,show_:function(){
+			$.log('FixedTooltip :: show_')
+			var offset = this.$target.offset();
+			this.$container.css({
+				top: offset.top
+				,left: offset.left + (this.$target.width()/2)
+			});
+			this.$container.tooltip('show');
+			if(this.isSupportTouch) $('body').on('touchend.FixedTooltip',$.proxy(this.hide_,this));
+			// $(document).on('mousemove',this.setContainerPos_);
+		}
+		,hide_:function(){
+			$.log('FixedTooltip :: hide_')
+			this.$container.tooltip('hide');
+			if(this.isSupportTouch) $('body').off('touchend.FixedTooltip');
+			// $(document).off('mousemove',this.setContainerPos_);
+		}
+	});
+// 	$(function(){
+			// $('[rel=fixed-tooltip]') で初期化はしなくていいか？
+			// $('[rel=fixed-tooltip]').each(function(i,o){
+			// 	new FixedTooltip($(o));
+			// });
+// 	});
+// }(window.jQuery);

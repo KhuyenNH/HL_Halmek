@@ -1,0 +1,42 @@
+@charset "Shift_JIS";
+
+/* --------------------------------------------------------------------
+	‰æ‘œƒXƒ‰ƒCƒh
+--------------------------------------------------------------------- */
+.fs_viewport {
+	margin: 0 auto;
+}
+.fs_item {
+	float: left;
+}
+.fs_control {
+	clear: both;
+	display: none;
+	padding-top: 10px;
+}
+.fs_prev {
+	width: 80px;
+	height: 40px;
+	float: left;
+	margin-left: 5px;
+}
+.fs_next {
+	width: 80px;
+	height: 40px;
+	float: right;
+	margin-right: 5px;
+}
+.fs_pointer {
+	text-align: center;
+	padding: 10px 0px;
+}
+.fs_pointer span.fs_pointer_current {
+	background: #0068B6;
+}
+.fs_pointer span {
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	border-radius: 8px;
+	border: 1px solid #000;
+}

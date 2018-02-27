@@ -1,0 +1,210 @@
+#eS55310 .psRel{position:relative;}
+
+#eS55310 .showPc .btn_detail:hover{
+	opacity: 0.6;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+}
+
+#eS55310 .showPc .contents{
+  margin-top:40px;
+}
+#eS55310 .showPc .eS55310_btn{
+  text-align: center;
+}
+#eS55310 .showPc .eS55310_btn .btn_detail{
+  display: inline-block;
+  margin: 0 10px;
+}
+#eS55310 .showPc .eS55310_btn img:hover{
+  opacity: .7;
+}
+#eS55310 .showPc .eS55310_btn .btn_pageTop{
+  margin-right: 30px;
+  font-size: 18px;
+  color: #402727;
+  float: right;
+  display: block;
+}
+#eS55310 .showPc .eS55310_btn .btn_pageTop:hover{
+  color: #e94709;
+}
+#eS55310 .showPc .caution{
+  font-weight: normal;
+  margin: 70px auto 30px;
+  clear: both;
+}
+#eS55310 .showPc .caution .caution__lead{
+  font-size: 14px;
+}
+#eS55310 .showPc .caution .caution__applicationHead{
+  margin: 10px 0 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+#eS55310 .showPc .caution .caution__applicationList li{
+  margin-left: 1.5em;
+  font-size: 14px;
+}
+#eS55310 .showPc .caution .caution__red {
+    color: #e50101;
+    padding-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+#eS55310 .sbHolder {
+	font-size:18px;
+	line-height:40px;
+	height:40px;
+	color:#1a0f08;
+	background:#fff;
+	border:solid 1px #bab3ab!important;
+	font-weight:normal;
+	position:relative;
+}
+#eS55310 .sbHolder:hover {
+	color:#1a0f08;
+	border-color:#807367!important;
+	background:url("../img/input-bg-hover.png") repeat-x;
+}
+#eS55310 .sbOptions {
+	background-color:#fff;
+	border: solid 1px #bab3ab!important;
+	list-style:none;
+	left:-1px;
+	margin:0;
+	padding:0;
+	position:absolute;
+	top:40px;
+	z-index:2;
+	overflow-y:auto;
+}
+#eS55310 .sbOptions a {
+	border-bottom:solid 1px #e0dad3!important;
+	display:block;
+	outline:none;
+	padding:7px 12px 6px 12px;
+	line-height:1.4;
+}
+
+#eS55310 .showPc .bulk_box .box01 .sbHolder {
+  position:absolute;
+  bottom:44px;
+  left:35px;
+}
+#eS55310 .showPc .bulk_box .box02 .sbHolder {
+  position:absolute;
+  bottom:44px;
+  left:392px;
+}
+#eS55310 .showPc .bulk_box .box03{
+  position:absolute;
+  bottom:48px;
+  left:410px;
+}
+#eS55310 .showPc .bulk_box .box04{
+  position:absolute;
+  bottom:48px;
+  left:53px;
+}
+#eS55310 .showPc .bulk_box .box05{
+  position:absolute;
+  bottom:4px;
+  left:45px;
+}
+#eS55310 .showPc .bulk_box .box06{
+  position:absolute;
+  bottom:32px;
+  left:45px;
+}
+#eS55310 .showPc .chkbox input[type=checkbox] {
+	display:none;
+}
+
+#eS55310 .showPc .bulk_box input[type="submit"]{
+	width:725px;
+	height:135px;
+	margin-top:20px;
+	background:url(../../../../img/event/3/S55310/S55310_pc_btn.jpg) no-repeat;
+	outline:none;
+	border:none;
+	cursor:pointer;
+}
+
+
+#eS55310 .showSp .contents{
+  margin-top:40px;
+}
+#eS55310 .showSp .contents .eS55310_btn {
+	margin-right:5%;
+}
+#eS55310 .showSp .caution_block {
+  margin-top: 8%;
+}
+#eS55310 .smallBanner {
+  margin: 0 0 10px;
+}
+#eS55310 .showSp .select_menu {
+  width:86%!important;
+  position:absolute;
+  bottom:5%;
+  left:7%;
+}
+
+#eS55310 .showSp .box2 {
+  position:absolute;
+  bottom:7%;
+  left:13%;
+}
+
+#eS55310 .showSp .box4 {
+  position:absolute;
+  bottom:38%;
+  left:5%;
+}
+
+#eS55310 .showSp .chkbox input[type=checkbox] {
+	display:none;
+}
+
+#eS55310 .showSp  input[type="submit"]{
+	width:100%;
+	height:0;
+	margin-top:15px;
+	padding-bottom:20%;
+	background:url(../../../../img/event/3/S55310/S55310_sp_btn.jpg) no-repeat;
+	background-size:100% auto;
+	outline:none;
+	border:none;
+}
+
+#eS55310 .showSp .btn_pageTop {
+    font-size: 12px;
+    text-align: right;
+    display: block;
+}
+
+#eS55310 .showSp .caution{
+  font-weight: normal;
+  margin: 0 auto 30px;
+  clear: both;
+  border-top: 0;
+}
+#eS55310 .showSp .caution .caution__lead{
+  padding-top: 20px;
+  font-size: 12px;
+}
+#eS55310 .showSp .caution .caution__applicationHead{
+  margin: 10px 0 0;
+  font-size: 12px;
+  font-weight: bold;
+}
+#eS55310 .showSp .caution .caution__applicationList li{
+  margin-left: 1.5em;
+  font-size: 12px;
+}
+#eS55310 .showSp .caution .caution__red {
+    color: #e50101;
+    padding-left: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}

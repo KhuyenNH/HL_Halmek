@@ -1,0 +1,358 @@
+@charset "Shift_JIS";
+
+/* --------------------------------------------------------------------
+	購入規約
+-------------------------------------------------------------------- */
+div.cartlist_kiyaku_ {
+	width:980px;
+	margin:0 auto;
+	padding:16px 0 0 0;
+}
+
+/* --------------------------------------------------------------------
+	カート画面
+-------------------------------------------------------------------- */
+div.cartlist_ {
+}
+div.order_flow_ {
+	margin: 40px 0;
+	text-align: center;
+}
+table.cartlist_ {
+	margin: 0 auto;
+	width: 800px;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom:#e5e5e5 1px solid;
+	border-collapse:collapse;
+}
+table.cartlist_ th {
+	border-bottom:#e5e5e5 1px solid;
+	border-collapse:collapse;
+}
+table.cartlist_ td {
+	border-bottom:#e5e5e5 1px solid;
+	border-collapse:collapse;
+}
+table.cartlist_ td.img_ {
+	width:100px;
+}
+table.cartlist_ td.img_ img {
+	width:100px;
+}
+table.cartlist_ td.name_ div.name_ {
+	margin-bottom:5px;
+}
+table.cartlist_ td.money_ {
+	width:80px;
+	white-space:nowrap;
+	text-align:right;
+}
+table.cartlist_ td.money_ span.price_ {
+	font-weight:normal;
+}
+table.cartlist_ td.qty_ {
+	width:80px;
+	white-space:nowrap;
+	text-align:right;
+}
+table.cartlist_ td.button_ {
+	text-align: center;
+	width: 60px;
+}
+table.cartlist_ td.total_ {
+	text-align:right;
+}
+table.cartlist_ .qty_ input {
+	height:30px;
+	padding:0;
+	line-height:30px;
+	text-align:center;
+	font-size:16px;
+	font-weight:bold;
+	border: 1px solid #e0dad3;
+}
+table.cartlist_ .qty_ img {
+	width: 30px;
+	height: 30px;
+}
+table.cartlist_ tr.total_line_ td.money_ span.price_ {
+	color:#ff0000;
+	font-size:20px;
+	font-weight:bold;
+}
+table.cartlist_ td.promotion_ {
+	text-align: center;
+	padding: 0px 0px 10px 0px;
+}
+table.cartlist_ div.promotionmsg_ {
+	width: 200px;
+	margin-right: 20px;
+	margin-top: 10px;
+    display:inline-table;
+}
+table.cartlist_ div.promotionmsg_box_ {
+	padding: 5px;
+	text-align: left;
+	border: 1px solid #f60;  
+	border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+table.cartlist_ span.promotionmsg_title_ {
+	font-size:12px;
+	display:block;
+	background: url(../img/usr/common/h2_arrow.png) left top no-repeat;
+	padding-left:18px;
+}
+table.cartlist_ span.promotionmsg_title_ .hilight_{
+	color:#ff6600;
+	font-size:14px;
+	font-weight:bold;
+}
+table.cartlist_ div.promotionshortmsg_ {
+	width: 200px;
+	margin-right: 20px;
+	margin-top: 10px;
+    display:inline-table;
+}
+table.cartlist_ div.promotionshortmsg_box_ {
+	padding: 5px;
+	text-align: left;
+	border: 1px solid #e0dad3;
+	border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+table.cartlist_ span.promotionshortmsg_title_ {
+	font-size:12px;
+	display:block;
+	background: url(../img/sys/kiken.gif) left top no-repeat;
+	padding-left:25px;
+}
+
+table.cartlist_ span.promotionshortmsg_title_ .hilight_{
+	color:#ff6600;
+	font-size:14px;
+	font-weight:bold;
+}
+table.cartlist_ span.short_price_ {
+	color:#ff0000;
+	font-size:14px;
+	font-weight:bold;
+}
+input.calc_ {
+	width:0px;
+	height:0px;
+}
+div.cart_submit_ {
+	width:800px;
+	margin:20px auto;
+	overflow:hidden;
+}
+div.cart_submit_ div.back_ {
+	width:220px;
+	height:35px;
+	float:left;
+}
+div.cart_submit_ div.next_ {
+	width:360px;
+	float:right;
+}
+div.cart_submit_ div.next_ p.note_ {
+	margin:10px 0;
+	text-align:center;
+}
+div.cart_submit_ div.order_btn_ {
+	margin-bottom:20px;
+}
+div.cart_submit_ div.gift_btn_ {
+}
+
+#order_service {
+	width:100%;
+	overflow:hidden;
+}
+#order_service ul {
+	width:105%;
+	overflow:hidden;
+}
+#order_service ul li {
+	width:225px;
+	margin:0 20px 0 0;
+	float:left;
+}
+#order_service ul li div.img_ {
+	margin-bottom:10px;
+}
+
+#block_of_recommend {
+}
+
+#block_of_history {
+}
+
+div.cartinfo_ {
+	margin:0 10px 10px;
+	text-align: center;
+	font-size:12px;
+}
+div.cartinfo_ span.price_ {
+	padding:0 2px;
+	font-size: 14px;
+	font-weight:bold;
+	color:#ff0000;
+}
+div.cartinfo_ span.free_ {
+	padding:0 2px;
+	font-size: 14px;
+	font-weight:bold;
+	color:#ff6600;
+}
+
+#order_step1 table .qty_ img {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
+#order_step1 table .qty_ input {
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid #CCC;
+    width: auto;
+    max-width: 40px;
+}
+
+/* --------------------------------------------------------------------
+	メールニュース
+-------------------------------------------------------------------- */
+div.mail_ {
+}
+div.mail_ table.misc-table {
+	width: 100%;
+}
+
+/* --------------------------------------------------------------------
+	トピックス
+-------------------------------------------------------------------- */
+/* トピック詳細 */
+div.topic_ {
+}
+h2.topic_title_ {
+	padding-bottom:5px;
+	margin-bottom:1.2em;
+	border-bottom:3px solid #735c4f;
+	font-size:125%;
+	font-weight:bold;
+	color:#331906;
+	letter-spacing:1px;
+}
+
+/* トピック一覧 */
+div.topiclist_ {
+}
+
+/* トピック詳細一覧 */
+div.topicdetaillist_ {
+}
+
+/* --------------------------------------------------------------------
+	アンケート
+-------------------------------------------------------------------- */
+/* 入力画面 */
+div.questionnaire_ {
+	width:980px;
+	padding:16px 0 0 0;
+	margin:0 auto;	
+}
+div.questionnaire_box_ {
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+}
+div.questionnaire_box_ div.desc_ {
+	margin-bottom: 10px;
+	padding: 0 0 10px 10px;
+	border-bottom: 1px solid #e0dad3;
+}
+div.questionnaire_box_ table {
+	width: 100%;
+}
+div.questionnaire_box_ table.formdetail_ th {
+	width: 16em;
+}
+div.questionnaire_box_ div.questionnaire_box_content_ {
+	padding: 0 10px;
+}
+/**/
+
+/* 確認画面 */
+table.questionnaire_confirm_ {
+	width: 100%;
+}
+table.questionnaire_confirm_ th {
+	width: 16em;
+}
+/**/
+
+/* --------------------------------------------------------------------
+	追加認証
+-------------------------------------------------------------------- */
+input.certify_ {
+	width:0px;
+	height:0px;
+}
+
+div.certify_escape_ {
+	text-align:center;
+}
+div.certify_escape_ a {
+	text-decoration:underline;
+}
+
+/**/
+
+/* --------------------------------------------------------------------
+	Amazonペイメント
+-------------------------------------------------------------------- */
+#LoginWithAmazonButton {
+	text-align: center;
+}
+
+#AmazonPayButton {
+	text-align: center;
+}
+
+#addressBookWidgetDiv {
+	width: 600px;
+	height: 270px;
+        padding: 5px 0;
+}
+
+#walletWidgetDiv {
+	width: 600px;
+	height: 270px;
+        padding: 5px 0;
+}
+
+div.amazon_pay_button_method_ {
+	padding-top: 18px;
+}
+
+div.login_with_amazon_button_method_ {
+	padding-bottom: 10px;
+}
+
+div.amazon_address_area_ {
+        width: 600px;
+        margin: 0 auto;
+}
+
+div.amazon_wallet_area_ {
+        width: 600px;
+        margin: 0 auto;
+}

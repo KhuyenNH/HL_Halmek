@@ -1,0 +1,38 @@
+body {
+    font-family: $font-body;
+    // font-size: 14px;
+}
+* {
+    box-sizing: border-box;
+}
+a {
+    // color: inherit;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    &:hover {
+        color: $color-primary;
+        text-decoration: none;
+        img {
+            opacity: 0.8;
+        }
+    }
+    &:focus {
+        color: $color-primary;
+        text-decoration: none;
+    }
+}
+h1, h2, h3, h4, h5, h5, h6 {
+    // font-family: $font-heading;
+}
+img {
+    max-width: 100%;
+    vertical-align: middle;
+}
+li, ol {
+    list-style: none;
+}
+button, input, a {
+    &:focus {
+        outline: none;
+    }
+}

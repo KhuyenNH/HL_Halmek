@@ -1,0 +1,259 @@
+#eS50039 .psRel{position:relative;}
+#eS50039 .showPc .btn_detail{
+	position:absolute;
+}
+#eS50039 .showPc .btn_detail:hover{
+	opacity: 0.6;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+}
+
+#eS50039 .showPc .eS50039_btn{
+  text-align: center;
+}
+#eS50039 .showPc .eS50039_btn .btn_detail{
+  display: inline-block;
+  margin: 0 10px;
+}
+#eS50039 .showPc .eS50039_btn img:hover{
+  opacity: .7;
+}
+#eS50039 .showPc .eS50039_btn .btn_pageTop{
+  margin-right: 30px;
+  font-size: 18px;
+  color: #402727;
+  float: right;
+  display: block;
+}
+#eS50039 .showPc .eS50039_btn .btn_pageTop:hover{
+  color: #e94709;
+}
+#eS50039 .showPc .caution{
+  font-weight: normal;
+  margin: 70px auto 30px;
+  clear: both;
+}
+#eS50039 .showPc .caution .caution__lead{
+  font-size: 14px;
+}
+#eS50039 .showPc .caution .caution__applicationHead{
+  margin: 10px 0 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+#eS50039 .showPc .caution .caution__applicationList li{
+  margin-left: 1.5em;
+  font-size: 14px;
+}
+#eS50039 .showPc .caution .caution__red {
+    color: #e50101;
+    padding-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+#eS50039 .sbHolder {
+	font-size:16px;
+	line-height:40px;
+	height:40px;
+	color:#1a0f08;
+	background:#fff;
+	border:solid 1px #bab3ab!important;
+	background: #fff none repeat scroll 0 0;
+	font-weight:normal;
+	position:relative;
+}
+#eS50039 .sbHolder:hover {
+	color:#1a0f08;
+	border-color:#807367!important;
+	background: #fff url("../img/input-bg-hover.png") repeat-x scroll 0 0;
+}
+#eS50039 .sbOptions {
+	background-color:#fff;
+	border: solid 1px #bab3ab!important;
+	list-style:none;
+	left:-1px;
+	margin:0;
+	padding:0;
+	position:absolute;
+	z-index:2;
+	overflow-y:auto;
+}
+#eS50039 .sbOptions a {
+	border-bottom:solid 1px #e0dad3!important;
+	display:block;
+	outline:none;
+	padding:7px 12px 6px 12px;
+	line-height:1.4;
+}
+
+#eS50039 .showPc .bulk_box .box01 .sbHolder {
+  position:absolute;
+  bottom:32px;
+  left:26px;
+}
+#eS50039 .showPc .bulk_box .box02 .sbHolder {
+  position:absolute;
+  bottom:32px;
+  left:383px;
+}
+#eS50039 .showPc .bulk_box .box03{
+  position:absolute;
+  bottom:34px;
+  left:26px;
+}
+#eS50039 .showPc .bulk_box .box04{
+  position:absolute;
+  bottom:34px;
+  left:383px;
+}
+#eS50039 .showPc .bulk_box .box05{
+  position:absolute;
+  bottom:35px;
+  left:48px;
+  float:left;
+}
+@-moz-document url-prefix() {
+#eS50039 .showPc .bulk_box .box05{
+  position:absolute;
+  bottom:33px;
+  left:43px;
+  float:left;
+}
+}
+#eS50039 .showPc .bulk_box .box06{
+  position:absolute;
+  bottom:40px;
+  left:405px;
+  float:left;
+}
+@-moz-document url-prefix() {
+#eS50039 .showPc .bulk_box .box06{
+  position:absolute;
+  bottom:33px;
+  left:400px;
+  float:left;
+}
+}
+
+#eS50039 .showPc .chkbox label{
+	float:left; margin:-18% 0 0 15%;
+	cursor:pointer;
+}
+
+@-moz-document url-prefix() {
+#eS50039 .showPc .chkbox label{
+	float:left; margin:-15% 0 0 15%;
+}
+}
+
+#eS50039 .showPc .chkbox input[type=checkbox] {
+	display:none;
+}
+
+#eS50039 .showPc .bulk_box input[type="submit"]{
+	width:725px;
+	height:154px;
+	background:url(../../../../img/event/3/S50039/S50039_pc_btn.jpg) no-repeat;
+	outline:none;
+	border:none;
+	cursor:pointer;
+}
+#eS50039 .showPc .bulk_box input[type="submit"]:hover{
+  opacity: .7;
+}
+
+#eS50039 .showPc .cBanner{
+  margin:0 auto 30px; 
+  border:3px solid #d6d6d6;
+  width:525px;
+}
+
+#eS50039 .showPc .cBanner:hover{
+  border:3px solid #f74c00;
+  opacity: .8;
+}
+
+
+#eS50039 .showSp .contents .eS50039_btn {
+	margin-right:5%;
+}
+#eS50039 .showSp .caution_block {
+  margin-top: 8%;
+}
+#eS50039 .smallBanner {
+  margin: 0 0 10px;
+}
+#eS50039 .showSp .bulk_box .select_menu {
+  width:86%!important;
+  position:absolute;
+  bottom:4%;
+  left:7%;
+}
+
+#eS50039 .showSp .box1 {
+  position:absolute;
+  bottom:0%;
+  left:13%;
+}
+
+#eS50039 .showSp .chkbox label{
+	float:left; 
+	margin:-12% 0 10% 15%;
+	width:77%;
+	cursor:pointer;
+}
+#eS50039 .showSp .chkbox input[type=checkbox] {
+	display:none;
+}
+
+#eS50039 .showSp .bulk_box input[type="submit"]{
+	width:100%;
+	height:0;
+	padding-bottom:25%;
+	background:url(../../../../img/event/3/S50039/S50039_sp_btn.jpg) no-repeat;
+	background-size:100% auto;
+	outline:none;
+	border:none;
+}
+
+#eS50039 .showSp .btn_pageTop {
+    font-size: 12px;
+    text-align: right;
+    display: block;
+}
+
+#eS50039 .showSp .caution{
+  font-weight: normal;
+  margin: 0 auto 30px;
+  clear: both;
+  border-top: 0;
+}
+#eS50039 .showSp .caution .caution__lead{
+  padding-top: 20px;
+  font-size: 90%;
+}
+#eS50039 .showSp .caution .caution__applicationHead{
+  margin: 10px 0 0;
+  font-size:115%;
+  font-weight: bold;
+}
+#eS50039 .showSp .caution .caution__applicationList li{
+  margin-left: 1.5em;
+  font-size: 90%;
+}
+#eS50039 .showSp .caution .caution__red {
+    color: #e50101;
+    padding-left: 10px;
+    font-size: 90%;
+    font-weight: bold;
+}
+
+#eS50039 .showSp .cBanner{
+  margin:0 auto 30px; 
+  border:3px solid #d6d6d6;
+  width:90%;
+}
+
+#eS50039 .showSp img {
+    width: 100%;
+    display:block;
+}

@@ -1,0 +1,66 @@
+// **********************************
+//   font-face
+// **********************************
+// @font-face {
+//   font-family: "UTM Alexander";
+//   src: url(asset-path("../fonts/UTM Alexander.ttf"));
+//   font-weight: normal;
+//   font-style: normal;
+// }
+
+// @font-face {
+//   font-family: "futura-medium";
+//   src: url(asset-path("fonts/futura-medium.eot"));
+//   src: url(asset-path("fonts/futura-medium.woff")) format("woff"),
+//   url(asset-path("assets/fonts/futura-medium.ttf")) format("truetype"),
+//   url(asset-path("fonts/futura-medium.svg")) format("svg");
+//   font-weight: normal;
+//   font-style: normal;
+// }
+
+// **********************************
+//   font-family
+// **********************************
+$font-body: "Roboto", sans-serif;
+$font-heading: "UTM Alexander", sans-serif;
+$font-awesome: "FontAwesome";
+
+// **********************************
+//   COLOR
+// **********************************
+// Brand Color
+$color-primary: #660000;
+
+// Application Color
+$color-a: #ffffff;
+$color-b: #aaa;
+$color-c: #aaa;
+$color-d: #aaa;
+$color-e: #aaa;
+$color-o: #000;
+
+
+// **********************************
+//   EXTENDS
+// **********************************
+
+%clearfix {
+    &:after {
+        content: "";
+        clear: both;
+        display: block;
+        height: 0;
+        visibility: hidden;
+    }
+}
+%padding_title {
+    padding-left: 3%;
+    padding-right: 3%;
+}
+%padding_text {
+    padding-left: 3%;
+    padding-right: 3%;
+}
+%duration {
+    transition-duration: 400ms;
+}

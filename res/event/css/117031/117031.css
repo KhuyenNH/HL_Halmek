@@ -1,0 +1,245 @@
+
+#e117031 .showPc .timerbg {
+  background: url("/img/event/3/117031_pc_cd.jpg");
+  margin-bottom:40px;
+}
+
+#e117031 .showPc .anchor{
+	padding: 30px 0;
+}
+#e117031 .showPc .anchor ul{
+	margin:0 30px;
+	font-size:18px;
+}
+#e117031 .showPc .anchor ul li {
+	padding-left:25px;
+	text-indent:-25px;
+}
+#e117031 .showPc .anchor ul li a{
+	text-decoration:none;
+	border-bottom:1px solid #000;
+}
+#e117031 .showPc .anchor ul li a:hover{
+	border-color:#db5d14;
+}
+#e117031 .showPc .anchor ul li strong{
+	color:#f04f78;
+}
+#e117031 .showPc .anchor ul li a:hover strong{
+	color:#db5d14;
+}
+#e117031 .showPc .anchor ul .mk{color:#f04f78;}
+
+#e117031 .psRel{position:relative;}
+#e117031 .showPc .btn_detail{
+	position:absolute;
+}
+#e117031 .showPc .btn_detail:hover{
+	opacity: 0.6;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+}
+#e117031 .showPc .btn_cam:hover{
+	opacity: 0.6;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+}
+
+#e117031 .showPc .category .cate{
+	float:left;
+}
+
+#e117031 .showPc .contents{
+	margin-top:80px;
+}
+
+#e117031 .showPc .btn00{
+	top:417px;
+	left:110px;
+}
+#e117031 .showPc .btn01{
+	bottom:20px;
+	left:60px;
+}
+#e117031 .showPc .btn02{
+	bottom:20px;
+	left:40px;
+}
+#e117031 .showPc .btn03{
+	bottom:15px;
+	left:0px;
+}
+#e117031 .showPc .btn04{
+	bottom:724px;
+	left:47px;
+}
+#e117031 .showPc .btn05{
+	bottom:724px;
+	left:374px;
+}
+#e117031 .showPc .btn06{
+	bottom:137px;
+	left:47px;
+}
+#e117031 .showPc .btn07{
+	bottom:137px;
+	left:374px;
+}
+#e117031 .showPc .btn08{
+	bottom:783px;
+	left:47px;
+}
+#e117031 .showPc .btn09{
+	bottom:783px;
+	left:374px;
+}
+#e117031 .showPc .btn10{
+	bottom:143px;
+	left:47px;
+}
+#e117031 .showPc .btn11{
+	bottom:143px;
+	left:374px;
+}
+#e117031 .showPc .btn12{
+	bottom:726px;
+	left:47px;
+}
+#e117031 .showPc .btn13{
+	bottom:726px;
+	left:374px;
+}
+#e117031 .showPc .btn14{
+	bottom:139px;
+	left:47px;
+}
+#e117031 .showPc .btn15{
+	bottom:139px;
+	left:374px;
+}
+#e117031 .showPc .btn16{
+	bottom:727px;
+	left:47px;
+}
+#e117031 .showPc .btn17{
+	bottom:727px;
+	left:374px;
+}
+#e117031 .showPc .btn18{
+	bottom:146px;
+	left:47px;
+}
+#e117031 .showPc .btn19{
+	bottom:146px;
+	left:374px;
+}
+#e117031 .showPc .btn20{
+	bottom:755px;
+	left:47px;
+}
+#e117031 .showPc .btn21{
+	bottom:755px;
+	left:374px;
+}
+#e117031 .showPc .btn22{
+	bottom:150px;
+	left:47px;
+}
+#e117031 .showPc .btn23{
+	bottom:150px;
+	left:374px;
+}
+#e117031 .showPc  .btn_pageTop{
+  margin-top: 0px;
+    font-size:18px;
+    color: #402727;
+    float: right;
+    display: block;
+}
+#e117031 .showPc  .btn_pageTop:hover{
+  text-decoration: none;
+  color: #db5d14;
+}
+#e117031 .showPc .caution{
+  font-weight: normal;
+  margin: 0 auto 30px;
+  clear: both;
+}
+#e117031 .showPc .caution .caution__lead{
+  font-size: 14px;
+}
+#e117031 .showPc .caution .caution__applicationHead{
+  margin: 10px 0 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+#e117031 .showPc .caution .caution__applicationList li{
+  margin-left: 1.5em;
+  font-size: 14px;
+}
+#e117031 .showPc .caution .caution__red {
+    color: #e50101;
+    padding-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#e117031 .showSp .timerwaku {
+  border: #20a473 solid 15px;
+  margin: 0 0 10px 0;
+  text-align:center;
+  font-weight: bold;
+  color:#000000;
+  line-height:30px;
+  font-size:75%;
+}
+
+#e117031 .showSp .ato {
+  margin:0;
+  font-weight: bold;
+  color:#21a373;
+}
+
+
+#e117031 .showSp .btn_detail{
+	position:absolute;
+	top:10px; 
+	right : 10px;
+}
+#e117031 .showSp .btn_pageTop {
+    font-size: 12px;
+    text-align: right;
+    display: block;
+    margin-bottom: 30px;
+}
+
+#e117031 .showSp .cate01{
+	position:absolute;
+	top:20%; 
+	left : 0px;
+	width:60%;
+}
+
+#e117031 .showSp .caution{
+  border-top: 1px dashed #999;
+  font-weight: normal;
+  margin: 0 auto 30px;
+  clear: both;
+}
+#e117031 .showSp .caution .caution__lead{
+  padding-top: 20px;
+  font-size: 12px;
+}
+#e117031 .showSp .caution .caution__applicationHead{
+  margin: 10px 0 0;
+  font-size: 12px;
+  font-weight: bold;
+}
+#e117031 .showSp .caution .caution__applicationList li{
+  margin-left: 1.5em;
+  font-size: 12px;
+}
+#e117031 .showSp .caution .caution__red {
+    color: #e50101;
+    padding-left: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}

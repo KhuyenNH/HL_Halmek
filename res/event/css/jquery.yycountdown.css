@@ -1,0 +1,59 @@
+#timer .yycountdown-box{
+	text-align:center;
+	width: 725px;
+	height:115px;
+	margin:0 0 0 30px;
+	padding-top:55px;
+	color:#21a373;
+	font-weight:bold;
+}
+
+#timer .yycountdown-box .yyc-day{
+	font-size:2.6em;
+}
+#timer .yycountdown-box .yyc-hou{
+	font-size:2.6em;
+}
+#timer .yycountdown-box .yyc-min{
+	font-size:2.6em;
+}
+#timer .yycountdown-box .yyc-sec{
+	font-size:2.6em;
+}
+
+#timer .yycountdown-box .yyc-day-text,
+#timer .yycountdown-box .yyc-hou-text,
+#timer .yycountdown-box .yyc-min-text,
+#timer .yycountdown-box .yyc-sec-text{
+	font-size:1.1em;
+}
+
+
+#timer2 .yycountdown-box
+{
+	text-align:center;
+	margin:-10px 0 0;
+	color:#21a373;
+	font-weight:bold;
+}
+
+#timer2 .yycountdown-box .yyc-day{
+	font-size:180%;
+}
+
+#timer2 .yycountdown-box .yyc-hou{
+	font-size:180%;
+}
+#timer2 .yycountdown-box .yyc-min{
+	font-size:180%;
+}
+#timer2 .yycountdown-box .yyc-sec{
+	font-size:180%;
+}
+
+#timer2 .yycountdown-box .yyc-day-text,
+#timer2 .yycountdown-box .yyc-hou-text,
+#timer2 .yycountdown-box .yyc-min-text,
+#timer2 .yycountdown-box .yyc-sec-text{
+	font-size:100%;
+}

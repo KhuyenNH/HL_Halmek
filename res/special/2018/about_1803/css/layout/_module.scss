@@ -1,0 +1,68 @@
+/*------------------- Wraper -------------------*/
+.row_clear {
+    clear: both;
+}
+.container {
+    width: 978px;
+    margin: 0 auto;
+    // padding: 0 15px;
+    position: relative;
+}
+/*------------------- Component -------------------*/
+// /*------------------- Typography -------------------*/
+.title_h2 {
+    font-size: 26px;
+    color: #151515;
+    line-height: 1.2;
+    text-align: center;
+    
+}
+.title_h3 {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #dadada;
+    color: #53b592;
+    text-align: center;
+    font-size: 25px;
+    line-height: 1.2;
+    // font-weight: bold;
+}
+.title_A {
+    // font-size: 24px;
+    // color: $color-primary;
+    // line-height: 1.8;
+    // font-weight: bold;
+}
+.title_B {
+    // font-size: 24px;
+    // line-height: 1.8;
+    // color: $color-primary;
+    // font-weight: bold;
+}
+.text {
+    // padding:
+    // font-size: ;
+    // color:
+}
+.note {
+    font-size: 12px;
+    text-align: center;
+    color: #666666;
+}
+.img_content {
+    text-align: center;
+}
+.btn_primary {
+    text-align: center;
+    // padding:
+    // border:
+    // background:
+    // font-size:
+    // color:
+}
+/*------------------- List -------------------*/
+.listItems {
+    @extend %clearfix;
+    // .items {
+    //     float: left;
+    // }
+}

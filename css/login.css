@@ -1,0 +1,441 @@
+@charset "Shift_JIS";
+
+/* --------------------------------------------------------------------
+	新規ログインページ
+-------------------------------------------------------------------- */
+
+.error_new_area{
+	background: #fff1f0;
+}
+.error_new li{
+	font-size: 18px;
+	color: #ff0c00;
+}
+.error_new{
+	background: #fff;
+}
+.error_new p{
+	font-size: 16px;
+	color: #580303;
+	background-image: url(../img/login/icn_login.png);
+	background-position: 0 8px;
+	background-repeat: no-repeat;
+	padding: 5px 0 0 22px;
+}
+.error_new .txt{
+	background: none;
+	color: #ff0c00;
+	padding: 0 0 5px 0;
+}
+.error_new p a span{
+	font-size: 16px;
+	text-decoration: underline;
+}
+
+
+/* PC */
+/*時的設置*/@media screen and (min-width: 768px) { 
+.showSp{
+	display: none;
+}
+.w978c{
+	width: 978px;
+	margin: 0 auto;
+	
+}
+/*時的設置*/
+.medium-header #brandNav #branding a{
+	margin-left: 0;
+}
+.medium-header #brandNav #branding{
+	margin-top: 30px;
+}
+#mediumHeader_new{
+	border-top: 15px solid #4b1e00;
+}
+.showPc .login-content .article-block{
+	border: 2px solid #4b1e00;
+	width: 470px;
+	min-height: 531px;
+	padding-bottom: 10px;
+}
+.btn.w-c5{
+	padding: 10px 15px 10px 13px;
+	width: auto;
+	height: auto;
+}
+.btn.w-c5 i{
+	background-image: url(../img/icon/btn-icn.png);
+	height: 13px;
+	width: 13px;
+	display: inline-block;
+	margin-right: 5px;
+}
+.btn.w-c5 .txt-btn{
+	font-size: 14px;
+}
+.checks p{
+	line-height: 35px;
+	margin-left: 10px;
+	float: left;
+}
+.checks img{
+	float: left;
+	margin-left: 10px;
+  margin-top: -3.5px;
+}
+.checks input {
+	display: none;
+}
+.checks input+label,
+.checks input+label::before,
+.checks input+label::after {
+	-webkit-transition: all .2s;
+	transition: all .2s;
+}
+.checks input+label {
+	display: inline-block;
+	position: relative;
+	width: 95px;
+	height: 35px;
+	border-radius: 24px;
+	cursor: pointer;
+}
+.checks input+label::before {
+	display: block;
+	content: attr(data-off-label);
+	position: absolute;
+	top: 6px;
+	right: 10px;
+	color: #fff;
+}
+.checks input+label::after {
+	content: '';
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 31px;
+	height: 31px;
+	background-color: #fff;
+	border-radius: 50%;
+}
+.checks input:checked+label::before {
+	content: attr(data-on-label);
+	left: 20px;
+	right: auto;
+	color: #fff;
+}
+.checks input:checked+label::after {
+	left: 62px;
+	background-color: #f7f7f7;
+}
+.checks .tgl-btn+label {
+	background-color: #b5b5b5;
+}
+.checks .tgl-btn+label::before {
+	color: #fff;
+}
+.checks .tgl-btn:checked+label {
+	background-color: #40bf63;
+}
+.checks .tgl-btn:checked+label::before {
+	color: #fff;
+}
+.three.flow-nav.flow-4 li {
+    width: 32.5%;
+}
+.three.flow-nav li{
+	padding: 0;
+}
+.showPc .login-content:after{
+	content: "";
+  clear: both;
+  display: block;
+}
+.showPc .login-content .article-block .head{
+	width: 100%;
+	height: 88px;
+	background: #4b1e00;
+	display: table;
+	text-align: center;
+}
+.showPc .login-content .article-block .head h1{
+	display: table-cell;
+	vertical-align: middle;
+	color: #fff;
+	font-size: 27px;
+	line-height: 1em;
+}
+.showPc .login-content .article-block .head h1 a{
+	color: #fff;
+}
+
+.showPc .login-content .article-block .head h1 a{
+	
+}
+.showPc .login-content .article-block .head h1 span{
+    font-size: 17px;
+    vertical-align: middle;
+}
+.showPc .login-content .article-block .inner p.txt{
+	font-size: 16px;
+}
+.showPc .login-content .article-block .inner{
+	margin: 20px auto 0;
+}
+.showPc .login-content .article-block .inner .center{
+	text-align: center;
+}
+.showPc .login-content .article-block:first-child{
+	float: left;
+}
+.showPc .login-content .article-block:last-child{
+	float: right;
+}
+.showPc .login-content .article-block .inner{
+	width: 390px;
+}
+.showPc .login-content .article-block:first-child .inner dl{
+	margin-top: 40px;
+}
+.showPc .login-content .article-block:first-child .inner dl dt{
+	font-size: 20px;
+	font-weight: bold;
+}
+.showPc .login-content .article-block:first-child .inner dl dd input{
+	width: 364px;
+}
+.showPc .login-content .article-block:first-child .inner dl dd #mailInput{
+	margin-bottom: 20px;
+}
+.showPc .login-content .article-block:first-child .inner .btn i{
+	margin-left: -5px;
+}
+.showPc .login-content .article-block:first-child .inner .btn .txt-btn{
+	margin-left: 10px;
+}
+.showPc .login-content .article-block:last-child .inner img{
+	margin-top: 10px;
+	width: 100%;
+}
+.showPc .login-content .article-block:last-child .inner .btn{
+	width: 325px;
+}
+.showPc .login-content .article-block:last-child .inner .btn i{
+	margin-right: 12px;
+}
+}
+/* SP */
+/*時的設置*/@media screen and (max-width: 767px) { 
+.showPc{
+	display: none;
+}
+.w978c{
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.medium-header #brandNav #branding a{
+	width: 230px;
+	height: 45px;
+	margin-left: 50px;
+	background-size: 100%;
+	margin: 20px 0;
+}
+.medium-header #brandNav #branding a:hover{
+	background-position: left 0 !important;
+}
+/*時的設置*/
+.medium-header #brandNav #branding a{
+	margin: 0 0 0 11px;
+}
+.medium-header #brandNav #branding{
+	margin-top: 13px;
+}
+.btn.w-c5{
+	padding: 10px 15px 10px 13px;
+	width: auto;
+	height: auto;
+}
+.btn.w-c5 i{
+	background-image: url(../img/icon/btn-icn.png);
+	height: 13px;
+	width: 13px;
+	display: inline-block;
+	margin-right: 5px;
+}
+.btn.w-c5 .txt-btn{
+	font-size: 14px;
+}
+.checks p{
+	line-height: 35px;
+	margin-left: 10px;
+	float: left;
+}
+.checks img{
+	float: left;
+	margin-left: 10px;
+  margin-top: -3.5px;
+}
+.checks input {
+	display: none;
+}
+.checks input+label,
+.checks input+label::before,
+.checks input+label::after {
+	-webkit-transition: all .2s;
+	transition: all .2s;
+}
+.checks input+label {
+	display: inline-block;
+	position: relative;
+	width: 95px;
+	height: 35px;
+	border-radius: 24px;
+	cursor: pointer;
+	float: left;
+}
+.checks input+label::before {
+	display: block;
+	content: attr(data-off-label);
+	position: absolute;
+	top: 2px;
+	right: 10px;
+	color: #fff;
+}
+.checks input+label::after {
+	content: '';
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 31px;
+	height: 31px;
+	background-color: #fff;
+	border-radius: 50%;
+}
+.checks input:checked+label::before {
+	content: attr(data-on-label);
+	left: 20px;
+	right: auto;
+	color: #fff;
+}
+.checks input:checked+label::after {
+	left: 62px;
+	background-color: #f7f7f7;
+}
+.checks .tgl-btn+label {
+	background-color: #b5b5b5;
+}
+.checks .tgl-btn+label::before {
+	color: #fff;
+}
+.checks .tgl-btn:checked+label {
+	background-color: #40bf63;
+}
+.checks .tgl-btn:checked+label::before {
+	color: #fff;
+}
+
+.showSc .login-content:after{
+	content: "";
+  clear: both;
+  display: block;
+}
+.showSc .login-content .article-block .head{
+	width: 100%;
+	height: 88px;
+	background: #4b1e00;
+	display: table;
+	text-align: center;
+}
+.showSc .login-content .article-block .head h1{
+	display: table-cell;
+	vertical-align: middle;
+	color: #fff;
+	font-size: 27px;
+	line-height: 1em;
+}
+
+#mediumHeader_new{
+	border-top: 15px solid #4b1e00;
+}
+
+.showSp .login-content .right-link{
+	margin: 0 15px 15px 0;
+	text-align: right;
+}
+.showSp .login-content .right-link a{
+	color: #4b1e00;
+}
+.showSp .login-content .article-block .head{
+	width: 100%;
+	height: 70px;
+	background: #4b1e00;
+	display: table;
+	text-align: center;
+}
+.showSp .login-content .article-block .head h1{
+	display: table-cell;
+	vertical-align: middle;
+	color: #fff;
+	font-size: 19px;
+	line-height: 1em;
+}
+.showSp .login-content .article-block .head h1 a{
+	color: #fff;
+	text-decoration: none;
+}
+.showSp .login-content .article-block .head h1 span{
+    font-size: 13px;
+    vertical-align: middle;
+}
+.showSp .login-content .article-block .inner p.txt{
+	font-size: 16px;
+}
+.showSp .login-content .article-block .inner .center{
+	text-align: center;
+}
+.showSp .login-content .article-block .inner input{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 100%;
+}
+.showSp .login-content .article-block .inner{
+	padding: 20px 15px 30px;
+}
+.showSp .login-content .article-block:first-child .inner dl{
+	margin-top: 20px;
+}
+.showSp .login-content .article-block:first-child .inner dl dt{
+	font-weight: bold;
+}
+.showSp .login-content .article-block:first-child .inner dl dd #mailInput{
+	margin-bottom: 20px;
+}
+.showSp .login-content .article-block:last-child .inner img{
+	margin-top: 10px;
+	width: 100%;
+	height: auto;
+}
+.showSp .login-content .article-block:first-child .inner .btn i{
+	margin-left: -5px;
+}
+.showSp .login-content .article-block:first-child .inner .btn .txt-btn{
+	margin-left: 10px;
+}
+
+.showSp .login-content .article-block .inner .btn{
+	width: 80%;
+}
+.showSp .login-content .article-block:last-child .inner .btn i{
+	margin-right: 10px;
+}
+}
+
+
+
+

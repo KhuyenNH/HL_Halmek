@@ -1,0 +1,128 @@
+#e217052 .showPc .contents {background-color:#ffffff; margin-top:50px;}
+
+#e217052 .psRel{
+	position:relative;
+}
+
+#e217052 .showPc .anc:hover{
+  opacity: .7;
+}
+
+#e217052 .showPc .anc01{
+	position:absolute;
+	top: 0px;
+	left: 0px;
+}
+#e217052 .showPc .anc02{
+	position:absolute;
+	top: 0px;
+	left: 363px;
+}
+#e217052 .showPc .anc03{
+	position:absolute;
+	top: 340px;
+	left: 0px;
+}
+#e217052 .showPc .anc04{
+	position:absolute;
+	top: 340px;
+	left: 363px;
+}
+#e217052 .showPc .anc05{
+	position:absolute;
+	top: 549px;
+	left: 363px;
+}
+
+#e217052 .showPc  .btn_detail{
+    margin-top:-10px;
+}
+
+#e217052 .showPc  .btn_pageTop{
+    margin-bottom:20px;
+    font-size:18px;
+    color: #402727;
+    float: right;
+    display: block;
+}
+#e217052 .showPc  .btn_pageTop:hover{
+  color: #db5d14;
+}
+
+#e217052 .showPc .caution{
+  font-weight: normal;
+  margin: 0 auto 30px;
+  clear: both;
+}
+#e217052 .showPc .caution .caution__lead{
+  font-size: 13px;
+}
+#e217052 .showPc .caution .caution__applicationHead{
+  margin: 10px 0 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+#e217052 .showPc .caution .caution__applicationList li{
+  margin-left: 1.5em;
+  font-size: 14px;
+}
+#e217052 .showPc .caution .caution__red {
+    color: #e50101;
+    padding-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#e217052 .showPc .cBanner{
+  margin:0 auto 30px; 
+  border:3px solid #d6d6d6;
+  width:525px;
+}
+
+#e217052 .showPc .cBanner:hover{
+  border:3px solid #f74c00;
+  opacity: .8;
+}
+
+#e217052 .showSp .contents { margin-top:40px;}
+
+#e217052 .showSp .caution{
+  border-top: 1px dashed #999;
+  font-weight: normal;
+  margin: 0 auto 30px;
+  clear: both;
+}
+#e217052 .showSp .caution .caution__lead{
+  padding-top: 20px;
+  font-size: 85%;
+}
+#e217052 .showSp .caution .caution__applicationHead{
+  margin: 10px 0 0;
+  font-size: 115%;
+  font-weight: bold;
+}
+#e217052 .showSp .caution .caution__applicationList li{
+  margin-left: 1.5em;
+  font-size: 90%;
+}
+#e217052 .showSp .caution .caution__red {
+    color: #e50101;
+    padding-left: 10px;
+    font-size: 90%;
+    font-weight: bold;
+}
+
+#e217052 .sBanner {
+  margin-bottom:10px;
+}
+
+#e217052 .showSp .cBanner{
+  margin:0 auto 30px; 
+  border:3px solid #d6d6d6;
+  width:90%;
+}
+
+#e217052 .showSp img {
+    width: 100%;
+    display:block;
+}

@@ -1,0 +1,79 @@
+.cp_sp_contents { display:none;}
+.cp_pc_contents { display:block; width:725px; margin:0 auto;}
+.cp_pc_contents * { font-family:"ÉqÉâÉMÉmäpÉS Pro W3", "Hiragino Kaku Gothic Pro", "ÉÅÉCÉäÉI", Meiryo; }
+.cp_pc_contents img { vertical-align:top; }
+.cp_pc_contents h1, ul { margin:0; padding:0; }
+.cp_pc_contents li { list-style:none; }
+
+
+.cp_pc_sec { position: relative; }
+.cp_pc_btn_sec { position:absolute; bottom:40px; left:0; width:100%; text-align:center; }
+.cp_pc_btn_sec a:hover ,.cp_pc_btn02_sec  a:hover{ opacity:0.5; }
+.cp_pc_btn02_sec{background:#eeeae0;text-align:center; padding-bottom:20px !important;}
+
+.cp_pc_nav {background:#eeeae0;padding:20px 0px 10px 105px !important;}
+.cp_pc_nav_list li { padding-bottom: 5px; font-size:16px; }
+.cp_pc_nav_list li a .c01{color:#752056;}
+.cp_pc_nav_list li a { color:#000000; font-weight:bold; }
+.cp_pc_nav_list li a:hover{ color:#e94709 !important; }
+.cp_pc_nav_list li a:hover > span { color:#e94709 !important; }
+
+.cp_pc_btn_pageTop {text-align:right; font-size:18px !important; padding:10px 30px 90px 0px !important;background:#faf5eb;}
+.cp_pc_btn_pageTop a { color:#000; font-weight:bold; }
+.cp_pc_btn_pageTop a:hover { color:#e94709; }
+
+.cp_pc_section { position:relative; background:#faf5eb;}
+.cp_pc_section ul { margin:0 40px; font-size:14px; letter-spacing:2px; }
+.cp_pc_section li { list-style:inside; text-indent:-1em; list-style-type:disc; font-weight: normal !important;}
+.cp_pc_section strong { display:block; font-size:16px; margin:0 1em 0.5em; }
+.cp_pc_section p{font-size:14px;margin:0px 30px;font-weight: normal !important;}
+p.under_red{color:#FF0004 !important;font-weight:bold !important; padding-bottom:10px !important;}
+
+.cp_pc_btn { position:absolute; bottom:40px; left:0; width:100%; text-align:center; }
+.cp_pc_btn_l { position:absolute; bottom:40px; left: 30px; width:100%; text-align:left; }
+.cp_pc_btn_r { position:absolute; bottom:40px; right: 30px; width:100%; text-align:right; }
+.cp_pc_btn a:hover,.cp_pc_btn_l a:hover,.cp_pc_btn_r a:hover  { opacity:0.5; }
+
+.cp_pc_bnr { margin:38px 0 40px !important; text-align:center; }
+.cp_pc_bnr02{text-align:center; padding-bottom:30px;}
+.cp_pc_bnr a { display:inline-block; border:3px solid #d6d6d6; }
+.cp_pc_bnr a:hover { border:3px solid #db5d14; }
+.cp_pc_bnr a:hover img ,.cp_pc_bnr02 a:hover img{ opacity:0.7; }
+.co_pc_btarea{padding:40px 0px 40px 0px !important;}
+.hr{width:90%;border-bottom: 1px solid !important;margin: 0px auto !important;}
+
+@media (max-width: 767px) {
+
+.cp_pc_contents { display:none; }
+.cp_sp_contents * { font-family:"ÉqÉâÉMÉmäpÉS Pro W3", "Hiragino Kaku Gothic Pro", "ÉÅÉCÉäÉI", Meiryo; }
+.cp_sp_contents { display:block; max-width:725px; margin:0 auto; }
+.cp_sp_contents img { vertical-align:top; width:100%; }
+.cp_sp_contents h1, ul { margin:0; padding:0; }
+.cp_sp_contents li { list-style:none; }
+
+.cp_sc_nav{background:#eeeae0;padding:20px 10px !important;}
+
+.cp_sp_anc_list {padding:0 15px; }
+.cp_sp_anc_list li { padding-top:8px; }
+.cp_sp_anc_list li:first-child { padding-top:0; }
+
+.cp_sp_btn_pageTop01{position:relative;}
+.cp_sp_btn_pageTop02{position:absolute;bottom: 30px;right:5px;font-size:30px !important;}
+.cp_sp_btn_pageTop02 a { color:#000; font-weight:bold; }
+.cp_sp_btn_pageTop02 a:hover { color:#e94709; }
+
+.cp_sp_nav_list {padding: 5px 20px 0 !important; }
+.cp_sp_nav_list li { font-size:10px;padding-top:5px !important; }
+.cp_sp_nav_list li span { color:#ee0c0c; }
+.cp_sp_nav_list li a { color:#000000; font-size:14px; font-weight:bold; }
+
+.cp_sp_section { position:relative; background:#faf5eb;}
+.cp_sp_section ul { font-size:14px !important; letter-spacing:1px; margin:0px 0px 0px 20px !important; }
+.cp_sp_section li { list-style:inside; text-indent:-1em; list-style-type:disc; font-weight: normal !important;}
+.cp_sp_section strong { display:block; font-size:14px !important; padding: 1em 0 0.5em;}
+.cp_sp_section_btm{padding:20px !important;}
+.cp_sp_section p{font-size:14px !important;margin:0px 0px !important;font-weight: normal !important;}
+.co_pc_btarea{padding:40px 0px 40px 0px !important;}
+.hr{width:90%;border-bottom: 1px solid !important;margin: 0px auto !important;}
+p.under_red{color:#FF0004 !important;font-weight:bold !important; padding-bottom:10px !important;}
+}

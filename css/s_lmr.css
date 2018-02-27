@@ -1,0 +1,103 @@
+@charset "Shift_JIS";
+
+/* --------------------------------------------------------------------
+	表示幅：固定
+	表示順：左メニュー・メインコンテンツ・右メニュー
+-------------------------------------------------------------------- */
+div.wrapper_ {
+	width:100%;
+	margin: 0 auto;
+	text-align:left;
+}
+div.container_ {
+	width:978px;
+	margin:0 auto;
+	zoom: 1;
+}
+#home div.container_,
+div.container_#itemDetail {
+	width:100%;
+	margin:0 auto;
+	zoom: 1;
+}
+div.contents_ {
+	display: inline;
+	zoom:1;
+}
+div.container_:after,
+div.contents_:after {
+	content: ""; 
+	display: block; 
+	height: 0; 
+	font-size:0;	
+	clear: both; 
+	visibility:hidden;
+}
+.layout-978, .w978c {
+	width:978px;
+	margin:0px auto;
+}
+
+/* 左メニュー */
+div.leftmenuframe_ {
+	zoom: 1;
+}
+div.leftmenuframe_:after {
+	content: ""; 
+	display: block; 
+	height: 0; 
+	font-size:0;	
+	clear: both; 
+	visibility:hidden;
+}
+
+/* 右メニュー */
+div.rightmenuframe_ {
+	zoom: 1;
+}
+div.rightmenuframe_:after {
+	content: ""; 
+	display: block; 
+	height: 0; 
+	font-size:0;	
+	clear: both; 
+	visibility:hidden;
+}
+
+/* メインフレーム */
+div.mainframe_ {
+	zoom: 1;
+}
+div.mainframe_:after {
+	content: ""; 
+	display: block; 
+	height: 0; 
+	font-size:0;
+	clear: both; 
+	visibility:hidden;
+}
+div.container_ div.contents_, 
+div.container_ div.mainframe_,
+div.container_ div.mainframe_ .event_ .goods_ { /* 左メニューのみ表示の場合 */
+}
+div.container_ div.contents_ div.mainframe_, 
+div.container_ div.contents_ div.mainframe_ .event_ .goods_ { /* 左右メニューの表示の場合 */
+}
+/**/
+div.single_mainframe_ {
+	zoom: 1;
+}
+div.single_mainframe_:after {
+	content: ""; 
+	display: block; 
+	height: 0; 
+	font-size:0;
+	clear: both; 
+	visibility:hidden;
+}
+div.col1_ {
+}
+div.order_col1_ {
+}
+div.col2_ {
+}

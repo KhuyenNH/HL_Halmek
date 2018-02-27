@@ -1,0 +1,36 @@
+@charset "Shift_JIS";
+
+/* PC */
+/*時的設置*/@media screen and (min-width: 768px) { 
+.modal-window .modal-close:before {
+min-height: 25000px;
+}
+
+.modal.fade{
+	margin-top: -300px !important;
+}
+.modal-body{
+	padding: 0;
+	max-height: 500px !important;
+}
+.modal-body img{
+	width: 100%;
+}
+}
+/* SP */
+/*時的設置*/@media screen and (max-width: 767px) { 
+.modal.fade{
+	margin-top: -250px !important;
+}
+.modal-body{
+	padding: 0;
+	max-height: 400px !important;
+}
+.modal-body img{
+	width: 100%;
+}
+}
+
+
+
+

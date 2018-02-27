@@ -1,0 +1,79 @@
+@charset "shift_jis";
+
+.pie                   { position:relative;}
+.tcol-white            { color:#fff;}
+.tcol-white a          { color:#fff;}
+.tcol-white a:hover    { color:#e2dcd5;}
+.tcol-white a:active   { color:#f2eeea;}
+.tcol-default          { color:#1a0f08;}
+.tcol-default a        { color:#451100;}
+.tcol-default a:hover  { color:#db5d14;}
+.tcol-default a:active { color:#f76b00;}
+.tcol-error            { color:#ff1500;}
+.tcol-error a          { color:#ff1500;}
+.tcol-error a:hover    { color:#cc1a0a;}
+.tcol-error a:active   { color:#cc1a0a;}
+.cfx { 
+	*zoom:1;
+}
+.cfx:after {
+	content:"\0020";
+	display:block;
+	height:0;
+	clear:both;
+	overflow:hidden;
+	visibility:hidden;
+}
+.clearfix {
+	overflow:hidden;
+*zoom:1;
+}
+.txtimg {
+	overflow:hidden;
+	position:relative;
+	display:inline-block;
+	text-indent:100%;
+	white-space:nowrap;
+	zoom:1;
+*text-indent:0;
+*font-size:0;
+*line-height:0;
+*display:inline;
+}
+#catalog .process-list     { min-height:184px; padding-left:84px; background:url(../img/catalog/help-process.png) left center no-repeat;}
+#catalog .process-list li  { margin-bottom:10px}
+#catalog .process-list img { padding:0 9px; vertical-align:bottom;}
+#catalog #catalogTable .inputs td                { vertical-align:top}
+#catalog #catalogTable .inputs .nth-child1       { white-space:nowrap; background:transparent;}
+#catalog #catalogTable .inputs .nth-child1 input {
+	display:inline-block;
+*display:inline;
+*zoom:1;
+	width:136px;
+	font-size:125%;
+}
+#catalog #catalogTable .inputs .nth-child1 input.first-child { width:58px;}
+#catalog #catalogTable .inputs .nth-child1 .sep-h {
+	display:inline-block;
+*display:inline;
+*zoom:1;
+	width:24px;
+	text-align:center;
+	height:42px;
+	line-height:42px;
+}
+#catalog #catalogTable .inputs .nth-child2 .sbHolder,
+#catalog #catalogTable .inputs .nth-child3 .sbHolder           { width:172px;}
+#catalog #catalogTable .inputs .nth-child2 .sbSelector,
+#catalog #catalogTable .inputs .nth-child3 .sbSelector         { width:132px;}
+#catalog #catalogTable .inputs .nth-child2 .sbOptions,
+#catalog #catalogTable .inputs .nth-child3 .sbOptions          { width:172px;}
+#catalog #catalogTable .inputs .nth-child4 .sbHolder           { width:112px;}
+#catalog #catalogTable .inputs .nth-child4 .sbSelector         { width:72px;}
+#catalog #catalogTable .inputs .nth-child4 .sbOptions          { width:112px;}
+#catalog #catalogTable .inputs .nth-child5                     { white-space:nowrap;}
+#catalog #catalogTable .stock-badges .badge-stock2             { display:none !important;}
+#catalog #catalogTable thead th                                { position:relative;}
+#catalog #catalogTable thead th .additional-balloon            { top:0; left:50%;}
+#catalog #catalogTable tbody td.nth-child1                     { position:relative;}
+#catalog #catalogTable tbody td.nth-child1 .additional-balloon { top:50%; right:0;}

@@ -1,0 +1,101 @@
+#e217112 .showPc .contents {background-color:#ffffff; margin-top:50px;}
+
+#e217112 .showPc  .btn_pageTop{
+    margin-top:-10px;
+    margin-bottom:30px;
+    font-size:18px;
+    color: #402727;
+    float: right;
+    display: block;
+}
+#e217112 .showPc  .btn_pageTop:hover{
+  color: #db5d14;
+}
+
+#e217112 .showPc .caution{
+  border-top: 1px dashed #fff;
+  font-weight: normal;
+  margin: 0 auto 30px;
+  clear: both;
+}
+#e217112 .showPc .caution .caution__lead{
+  font-size: 14px;
+}
+#e217112 .showPc .caution .caution__applicationHead{
+  margin: 10px 0 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+#e217112 .showPc .caution .caution__applicationList li{
+  margin-left: 1.5em;
+  font-size: 14px;
+}
+#e217112 .showPc .caution .caution__red {
+    color: #e50101;
+    padding-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#e217112 .showPc .cBanner{
+  margin:0 auto 30px; 
+  border:3px solid #d6d6d6;
+  width:525px;
+}
+
+#e217112 .showPc .cBanner:hover{
+  border:3px solid #f74c00;
+  opacity: .8;
+}
+
+#e217112 .showSp .contents { margin-top:40px;}
+
+#e217112 .showSp .button { margin-top:20px;}
+
+#e217112 .showSp .caution{
+  border-top: 1px dashed #fff;
+  font-weight: normal;
+  margin: 0 auto 30px;
+  clear: both;
+}
+#e217112 .showSp .caution .caution__lead{
+  padding-top: 20px;
+  font-size: 12px;
+}
+#e217112 .showSp .caution .caution__applicationHead{
+  margin: 10px 0 0;
+  font-size: 12px;
+  font-weight: bold;
+}
+#e217112 .showSp .caution .caution__applicationList li{
+  margin-left: 1.5em;
+  font-size: 12px;
+}
+#e217112 .showSp .caution .caution__red {
+    color: #e50101;
+    padding-left: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#e217112 .sBanner {
+  margin-bottom:10px;
+}
+
+#e217112 .showSp .cBanner{
+  margin:0 auto 30px; 
+  border:3px solid #d6d6d6;
+  width:90%;
+}
+
+#e217112 .showSp .btn_pageTop {
+    font-size: 12px;
+    margin-top:0;
+    margin-bottom:20px;
+    text-align: right;
+    display: block;
+}
+#e217112 .showSp img {
+    width: 100%;
+    display:block;
+}

@@ -1,0 +1,76 @@
+#e217043 .btn_pageTop{
+	font-weight: normal;
+	color: #666;
+}
+
+#e217043 .btn_pageTop:hover{
+	color: #e94709;
+}
+
+#e217043 .showPc .anchor .anchor__list{
+	border: 4px solid #18b4cb;
+}
+
+#e217043 .showPc .anchor .anchor__list .anchor__item{
+	margin-left:10px;
+}
+
+#e217043 .showPc .anchor .anchor__list .anchor__item .caret{
+	color: #ff6e97;
+}
+
+#e217043 .showPc .anchor .anchor__list .anchor__item a:hover .care{
+	color: #e94709;
+}
+
+#e217043 .showPc .caution .caution__applicationHead{
+	margin: 10px 0 0;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#e217043 .showPc .caution .caution__applicationList li{
+	margin-left: 1.5em;
+	font-size: 14px;
+}
+
+#e217043 .showPc a#btn_r1 {
+	display: block;
+	overflow: hidden;
+	width: 725px;
+	height: 60px;
+	float: right;
+	background: url(/img/event/3/217043/217043_pc_09_2.jpg) left top no-repeat;
+	text-indent: -999px;
+}
+#e217043 .showPc a#btn_r1:hover {
+	background-position: left bottom;
+}
+#e217043 .showSp .contents {
+	margin-top: 10px;
+}
+
+#e217043 .showSp .contents .contents__btn_clm2{
+	margin-top: 0;
+}
+
+#e217043 .showSp .contents .contents__btn_clm2 a{
+	width: 47%;
+	margin-right: 6%;
+	box-shadow: none;
+}
+
+#e217043 .showSp .contents .contents__btn_clm2 a:last-child{
+	margin-right: 0;
+}
+
+#e217043 .showSp .caution .caution__applicationHead{
+	margin: 10px 0 0;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#e217043 .showSp .caution .caution__applicationList li{
+	margin-left: 1.5em;
+	font-size: 12px;
+}

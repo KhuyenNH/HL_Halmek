@@ -1,0 +1,278 @@
+@charset "UTF-8";
+
+/**************************
+共通要素
+**************************/
+
+.banner_page .showPc {
+  font-size: 0;
+  width: 725px;
+  font-family: 'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+}
+
+.banner_page .showPc .main {
+  position: relative;
+}
+
+.banner_page .showPc .main .anc_block {
+  position: absolute;
+  width: 640px;
+  bottom: 60px;
+  left: 50px;
+}
+
+.banner_page .showPc .main .anc_block .anc_list .anc_item {
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.banner_page .showPc .main .anc_block .anc_list .anc_item:hover .anc {
+  color: #e94709;
+}
+
+.banner_page .showPc .main .anc_block .anc_list .anc_item:hover .ico {
+  color: #e94709;
+}
+
+.banner_page .showPc .main .anc_block .anc_list .anc_item .anc {
+  color: #000;
+}
+
+.banner_page .showPc .category {
+  margin-bottom: 70px;
+}
+
+.banner_page .showPc .category .block {
+  margin-bottom: 25px;
+}
+
+.banner_page .showPc .category .block .btn_detail {
+  display: block;
+  width: 715px;
+  margin: 0 auto;
+  -webkit-transition: 0.5s;
+          transition: 0.5s;
+}
+
+.banner_page .showPc .category .block .btn_detail:hover {
+  opacity: 0.6;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+}
+
+.banner_page .showPc .category .block .two_column {
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.banner_page .showPc .category .block .two_column .left {
+  float: left;
+  margin-bottom: 10px;
+}
+
+.banner_page .showPc .category .block .two_column .right {
+  float: right;
+  margin-bottom: 10px;
+}
+
+.banner_page .showPc .category .block .two_column .style {
+  display: block;
+  margin: 0 auto;
+}
+
+.banner_page .showPc .category .btn_pageTop {
+  font-size: 16px;
+  float: right;
+  margin-right: 20px;
+  color: #000;
+  position: relative;
+  text-decoration: none;
+  border-bottom: 1px solid #000;
+  padding-bottom: 2px;
+}
+
+.banner_page .showPc .category .btn_pageTop .ico {
+  color: #E1316D;
+}
+
+.banner_page .showPc .category .btn_pageTop:hover {
+  color: #e94709;
+  border-bottom: 1px solid #e94709;
+}
+
+.banner_page .showPc .category .btn_pageTop:hover .ico {
+  color: #e94709;
+}
+
+.banner_page .showPc .caution_block {
+  background-image: url("/img/event/2/common_pc_line.jpg");
+  background-repeat: no-repeat;
+  line-height: 1.5;
+  margin-bottom: 30px;
+}
+
+.banner_page .showPc .caution_block .inner {
+  padding-top: 30px;
+}
+
+.banner_page .showPc .caution_block .inner .deadline {
+  font-weight: normal;
+  color: #f00;
+  margin: 0 0 22px 6px;
+  font-size: 16px;
+}
+
+.banner_page .showPc .caution_block .inner .caution_list {
+  font-weight: normal;
+  font-size: 14px;
+  margin: 0 0 15px 30px;
+  list-style-type: disc;
+}
+
+.banner_page .showPc .caution_block .inner .small {
+  font-size: 14px;
+  list-style-type: none;
+  text-indent: -2.6em;
+  margin-left: 45px;
+}
+
+.banner_page .showPc .caution_block .inner .caution_tit {
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.banner_page .showPc .banner_block {
+  width: 706px;
+  margin: 0 auto;
+}
+
+.banner_page .showPc .banner_block .btn_banner {
+  display: block;
+  margin-bottom: 30px;
+  -webkit-transition: 0.5s;
+          transition: 0.5s;
+}
+
+.banner_page .showPc .banner_block .btn_banner:hover {
+  opacity: 0.6;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+}
+
+.banner_page .showSp {
+  font-family: 'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+}
+
+.banner_page .showSp img {
+  width: 100%;
+}
+
+.banner_page .showSp .category {
+  margin-bottom: 5%;
+}
+
+.banner_page .showSp .category .block .btn_detail {
+  display: block;
+  margin-bottom: 4%;
+}
+
+.banner_page .showSp .category .btn_pageTop {
+  text-decoration: none;
+  color: #000;
+  float: right;
+  font-size: 10px;
+  font-size: 3.125vw;
+  margin-right: 3%;
+}
+
+@media screen and (min-width: 960px) {
+  .banner_page .showSp .category .btn_pageTop {
+    font-size: 20px;
+  }
+}
+
+.banner_page .showSp .caution_block {
+  width: 95%;
+  margin: 0 auto;
+  line-height: 1.5;
+  background-image: url("/img/event/2/common_sp_line.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding-top: 7%;
+  margin-top: 7%;
+  font-size: 10px;
+  font-size: 3.125vw;
+  font-weight: normal;
+}
+
+@media screen and (min-width: 960px) {
+  .banner_page .showSp .caution_block {
+    font-size: 10px;
+  }
+}
+
+.banner_page .showSp .caution_block .caution_tit {
+  font-weight: normal;
+}
+
+.banner_page .showSp .caution_block .deadline {
+  color: #f00;
+  margin-bottom: 4%;
+}
+
+.banner_page .showSp .caution_block .caution_list {
+  font-weight: normal;
+  margin-bottom: 4%;
+}
+
+.banner_page .showSp .caution_block .disc {
+  font-weight: normal;
+  list-style-type: disc;
+  margin-left: 7%;
+}
+
+.banner_page .showSp .banner_block {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.banner_page .showSp .banner_block .btn_banner {
+  display: block;
+  margin-bottom: 5%;
+}
+
+/**************************
+定期便
+**************************/
+#teikibin .showPc .main {
+  position: relative;
+}
+
+#teikibin .showPc .main .note {
+  position: absolute;
+  width: 680px;
+  text-indent: -1em;
+  left: 30px;
+  bottom: 60px;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+#teikibin .showSp .main {
+  position: relative;
+}
+
+#teikibin .showSp .main .note {
+  width: 86%;
+  left: 10%;
+  top: 76%;
+  position: absolute;
+  text-indent: -1em;
+  line-height: 1.4;
+  font-size: 10px;
+  font-size: 3.125vw;
+}
+
+@media screen and (min-width: 960px) {
+  #teikibin .showSp .main .note {
+    font-size: 20px;
+  }
+}

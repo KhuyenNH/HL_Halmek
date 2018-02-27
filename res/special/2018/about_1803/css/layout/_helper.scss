@@ -1,0 +1,33 @@
+/*======================================
+        Helper
+======================================*/
+.is_pc {
+    display: inherit;
+}
+.is_sp {
+    display: none;
+}
+.is_hidden {
+    display: none;
+}
+.tar {
+    text-align: right;
+}
+.tal {
+    text-align: left;
+}
+.tac {
+    text-align: center;
+}
+.float_left {
+    float: left;
+}
+.float_right {
+    float: right!important;
+}
+.brd_none {
+    border: 0!important;
+}
+.pt_45 {
+    padding-top: 45px!important;
+}

@@ -1,0 +1,17 @@
+@charset "shift_jis";
+
+.showSp {
+	display:none
+}
+.catalog-bar2 {
+	position:relative
+}
+.catalog-bar2 .btn-green {
+	position:absolute;
+	top:11px;
+	right:12px
+}
+.catalog-bar2 span.sep-v {
+	position:absolute;
+	right:8px
+}

@@ -1,0 +1,179 @@
+/*    section_01
+-------------------------------------*/
+.section_01 {
+    .title_h2 {
+        padding: 25px 0 15px;
+        line-height: 1.4;
+    }
+    .note {
+        padding-bottom: 15px;
+    }
+    .btn_primary {
+        padding-bottom: 35px;
+    }
+}
+/*    section_02
+-------------------------------------*/
+.section_02 {
+    font-size: 14px;
+    background: #f5f8ef;
+    padding: 60px 0 70px;
+    .title_h2 {
+        padding-bottom: 50px;
+    }
+    .title_h3 {
+        padding-top: 20px;
+        padding-bottom: 6px;
+        margin-bottom: 10px;
+    }
+    .container {
+        background: url('../img/bg_tit_01.jpg') no-repeat top center #fff;
+        padding-top: 90px;
+        padding-bottom: 60px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 30px;
+    }
+    .list_about {
+        padding: 0 25px;
+        @extends %clearfix;
+        div {
+            text-align: center;
+            float: left;
+            width: 33.3333333%;
+            padding: 0 17px;
+        }
+    }
+    .link_list {
+        background: url('../img/arrow_right.png') no-repeat 6% 50% #53b592;
+        color: #fff;
+        border-radius: 5px;
+        padding: 3px 20px 2px 30px;
+    }
+    .des_list {
+        padding: 0 5px 20px 5px;
+    }
+    + .btn_primary {
+        padding: 35px 0 70px;
+    }
+}
+
+/*    section_03
+-------------------------------------*/
+.section_03 {
+    background: #fff3e3;
+    padding: 60px 0 70px;
+    .container {
+        background: url('../img/bg_tit_02.jpg') no-repeat top center #fff;
+        position: relative;
+        overflow: hidden;
+        border-radius: 30px;
+        padding: 85px 60px 50px;
+    }
+    .title_h3 {
+        border-bottom: 0;
+        position: relative;
+        margin-bottom: 15px;
+        display: inline-block;
+        border-bottom: 1px solid #dadada;
+        // &:after {
+        //     content: "";
+        //     position: absolute;
+        //     bottom: 0;
+        //     width: 29%;
+        //     height: 1px;
+        //     background: #dadada;
+        //     margin: 0 auto;
+        //     left: 0;
+        //     right: 0;
+        // }
+        &.last {
+            padding-top: 50px;
+        }
+    }
+    .description_text {
+        &.first {
+            padding: 0 20px 35px 20px;
+        }
+    }
+    .local_ssl {
+        padding: 35px 48px 60px;
+        background: #f7f7f6;
+        .title_h4 {
+            text-align: center;
+            font-size: 28px;
+            padding-bottom: 10px;
+        }
+        .text_gg {
+            font-size: 20px;
+            padding-top: 25px;
+            padding-bottom: 6px;
+        }
+        .text_ssl {
+            font-size: 20px;
+            padding-top: 15px;
+            padding-bottom: 6px;   
+        }
+    }
+    + .btn_primary {
+        padding: 60px 0 65px;
+    }
+}
+.box_ssl {
+    @extends %clearfix;
+    .icon_ssl {
+        float: left;
+        margin-right: 34px;        
+    }
+    .description_text {
+        padding-top: 10px;
+    }
+    
+}
+/*    block_of_genre
+-------------------------------------*/
+#block_of_genre {
+    padding-bottom: 85px;
+    .title_section {
+        font-size: 35px;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+        text-align: center;
+        color: #3f1a1a;
+        border-bottom: 1px solid #3f1a1a;
+    }
+}
+
+/*    section_04
+-------------------------------------*/
+.section_04 {
+    padding-bottom: 30px;
+    .title_h3 {
+        color: #3f1a1a;
+        text-align: left;
+        border-bottom: 0;
+        font-weight: bold;
+        padding-bottom: 10px;
+        
+    }
+    .line {
+        border-bottom: 1px solid #3f1a1a;
+        margin-bottom: 18px;
+    }
+    .table_link {
+        width: 100%;
+        margin: auto;
+        td {
+            font-size: 18px;
+            background: url('../img/icon_play.png') no-repeat 0px 50%;
+            padding: 10px 0 8px 35px;
+        }
+    }
+}
+
+#home .cat-list li a .copy {
+    width: inherit;
+}
+#home .cat-list li a:hover {
+    background: #e6e6e6;
+}

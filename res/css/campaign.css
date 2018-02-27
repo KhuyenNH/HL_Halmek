@@ -1,0 +1,61 @@
+@charset "shift_jis";
+/* modal setting */
+.mfp-bg     {z-index:99999!important;}
+.mfp-wrap   {z-index:99999!important;}
+.mfp-content{text-align:center;}
+.white-popup{
+	position:relative;
+	background-color:#fff;
+	margin:30px auto;
+	display:inline-block;
+}
+button.mfp-close{opacity:1}
+@media screen and (min-width: 769px) {
+	button.mfp-close      {width:87px;height:100px;top:10px;right:10px;background:url(../img/campaign/btn_close.png) center top no-repeat}
+	button.mfp-close:hover{top:10px;right:10px;background-position:center bottom}
+}
+@media screen and (max-width: 768px) {
+	button.mfp-close      {width:85px;height:30px;top:-30px;right:0;background:url(../img/campaign/sp_btn_close.png) no-repeat;background-size:cover}
+	button.mfp-close:hover{top:-30px;right:0}
+}
+
+/* banner setting */
+#campaign{background:url(../img/bg-orange-a25.png)}
+#campaign #campaign_bnr li{
+	box-sizing:border-box;
+	padding:3px;
+	box-shadow:inset 1px 1px 0 0 rgba(0,0,0,0.25);
+	background-color:#d4c9bc;
+}
+#campaign #campaign_bnr li:hover{background-color:#f76b00;}
+#campaign #campaign_bnr li img{width:100%;height:auto;display:block;box-shadow:1px 1px 0 0 rgba(0,0,0,0.25);}
+@media screen and (min-width: 769px) {
+	#campaign #campaign_bnr li:first-child:nth-last-child(1){width:100%}
+	#campaign #campaign_bnr li:first-child:nth-last-child(2),
+	#campaign #campaign_bnr li:first-child:nth-last-child(2) ~ li {width:50%;float:left}
+}
+
+/* 20171110 */
+.modal171110{position:relative}
+@media screen and (min-width: 769px) {
+	button.mfp-close{background-image:url(../img/campaign/btn_close_gold.png)!important}
+	.modal171110 .inBtn{
+		display:block;width:511px;height:67px;
+		position:absolute;bottom:15px;left:193px;
+		background:url(../img/campaign/171110_modal_btn.png) center top no-repeat;
+		background-size:100% auto;
+		text-indent:100%;white-space:nowrap;overflow:hidden;
+	}
+	.modal171110 .inBtn:hover{background-position:center bottom}
+}
+@media screen and (max-width: 768px) {
+	button.mfp-close{background-image:url(../img/campaign/btn_close_gold_sp.png)!important}
+	.modal171110 img{width:100%}
+	.modal171110 .inBtn{
+		display:block;width:76%;height:0;padding-bottom:16%;margin-left:-38%;
+		position:absolute;bottom:3%;left:50%;
+		background:url(../img/campaign/171110_modal_btn_sp.png) center top no-repeat;
+		background-size:100% auto;
+		text-indent:100%;white-space:nowrap;overflow:hidden;
+	}
+}

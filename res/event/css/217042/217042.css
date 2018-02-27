@@ -1,0 +1,155 @@
+#e217042 .showPc .anchor{
+	padding: 40px 0;
+	background: #f8f6e1;
+}
+
+#e217042 .showPc .anchor .anchor__list{
+	margin-bottom: 0;
+	border: 4px solid #3d9c34;
+	background: #fff;
+}
+
+#e217042 .showPc .anchor .mk{
+	color: #ff0164;
+}
+
+#e217042 .showPc .anchor .mk2{
+	color: #3d9c34;
+}
+
+#e217042 .showPc .anchor strong{
+	color: #ff0164;
+}
+
+#e217042 .showPc .anchor strong.green{
+	color: #3d9c34;
+}
+
+#e217042 .showPc .contents{
+	position: relative;
+	background: #f8f6e1;
+	margin-bottom: 0;
+	padding-bottom: 10px;
+}
+
+#e217042 .showPc .anchor ul li a:hover,
+#e217042 .showPc .anchor ul li a:hover strong{
+	color: #e94709;
+}
+
+#e217042 .showPc .contents .btn01{
+	position: absolute;
+	top: 2060px;
+	right: 0;
+	left: 0;
+	margin: 0 auto;
+}
+
+#e217042 .showPc .contents .btn02{
+	position: absolute;
+	top: 2875px;
+	right: 0;
+	left: 0;
+	margin: 0 auto;
+}
+
+#e217042 .showPc .contents .btn03{
+	position: absolute;
+	top: 2165px;
+	right: 0;
+	left: 0;
+	margin: 0 auto;
+}
+
+#e217042 .showPc .contents .btn04{
+	position: absolute;
+	top: 2980px;
+	right: 0;
+	left: 0;
+	margin: 0 auto;
+}
+
+#e217042 .showPc .contents .btn05{
+	position: absolute;
+	top: 1170px;
+	right: 0;
+	left: 0;
+	margin: 0 auto;
+}
+
+#e217042 .showPc .contents .btn06{
+	position: absolute;
+	top: 2235px;
+	right: 0;
+	left: 0;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#e217042 .showPc .contents .btn06 .contents__btn{
+	width: 275px;
+}
+
+#e217042 .showPc .caution {
+	margin-top: 20px;
+}
+
+#e217042 .showPc .caution .caution__applicationHead{
+	margin: 10px 0 0;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#e217042 .showPc .caution .caution__important {
+	color: #f00;
+	font-size: 14px;
+}
+
+#e217042 .showPc .caution .caution__applicationList li{
+	margin-left: 1.5em;
+	font-size: 12px;
+}
+
+#e217042 .showSp .anchor{
+	background: #f8f6e1;
+	margin-bottom: 0;
+	padding-bottom: 20px;
+}
+
+#e217042 .showSp .contents{
+	background: #f8f6e1;
+	margin-bottom: 0;
+	padding-bottom: 20px;
+}
+
+#e217042 .showSp .contents .contents__btn_clm2{
+	display: block;
+	background: url(/img/event/3/217042/217042_sp_btnbg01.jpg);
+	background-size: cover;
+	text-align: center;
+}
+
+#e217042 .showSp .contents .contents__btn_clm2 a{
+	display: inline-block;
+	width: 45%;
+}
+
+#e217042 .showSp .caution{
+	margin-top: 20px;
+}
+
+#e217042 .showSp .caution .caution__applicationHead{
+	margin: 10px 0 0;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#e217042 .showSp .caution .caution__important {
+	color: #f00;
+	font-size: 14px;
+}
+
+#e217042 .showSp .caution .caution__applicationList li{
+	margin-left: 1.5em;
+	font-size: 12px;
+}

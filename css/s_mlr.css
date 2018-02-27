@@ -1,0 +1,61 @@
+@charset "Shift_JIS";
+
+/* --------------------------------------------------------------------
+	表示幅：固定
+	表示順：メインコンテンツ・左メニュー・右メニュー
+-------------------------------------------------------------------- */
+div.wrapper_ {
+	margin: 0 auto;
+	width: 960px;
+	text-align:left;
+}
+div.container_ {
+	width: 100%;
+	overflow: hidden;
+}
+div.contents_ {
+	float: left;
+	display: inline;
+	overflow: hidden;
+}
+/* 左メニュー */
+div.leftmenuframe_ {
+	margin: 0 0 0 20px;
+	float: left;
+	display: inline;
+	width:160px;
+	overflow: hidden;
+}
+/**/
+/* 右メニュー */
+div.rightmenuframe_ {
+	margin: 0 0 0 20px;
+	float: right;
+	display: inline;
+	width:160px;
+	overflow: hidden;
+}
+/**/
+/* メインフレーム */
+div.mainframe_ {
+	float: left;
+	display: inline;
+	overflow: hidden;
+}
+div.container_ div.contents_, div.container_ div.mainframe_, div.container_ div.mainframe_ .event_ .goods_ { /* 左メニューのみ表示の場合 */
+	width: 780px; /* = div.container_ - div.leftmenuframe_ */
+}
+div.container_ div.contents_ div.mainframe_, div.container_ div.contents_ div.mainframe_ .event_ .goods_ { /* 左右メニューの表示の場合 */
+	width: 600px; /* = div.container_ - (div.leftmenuframe_ + div.rightmenuframe_) */
+}
+/**/
+div.single_mainframe_ {
+	float: right;
+	display: inline;
+	overflow: hidden;
+}
+
+div.col1_ {
+	padding: 0 60px;
+}
+
