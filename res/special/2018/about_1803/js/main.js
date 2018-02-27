@@ -30,10 +30,12 @@ equalheight = function(container) {
     });
 }
 $(window).load(function() {
+    equalheight('.section_02 img');
     equalheight('.section_02 .title_h3');
     equalheight('.section_02 .des_list');
 });
 $(window).resize(function() {
+    equalheight('.section_02 img');
     equalheight('.section_02 .title_h3');
     equalheight('.section_02 .des_list');
 });

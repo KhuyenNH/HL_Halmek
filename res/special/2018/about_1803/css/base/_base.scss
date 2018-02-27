@@ -1,5 +1,5 @@
 body {
-    font-family: $font-body;
+    // font-family: $font-body;
     // font-size: 14px;
 }
 * {
@@ -10,7 +10,7 @@ a {
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
     &:hover {
-        color: $color-primary;
+        // color: $color-primary;
         text-decoration: none;
         img {
             opacity: 0.8;

@@ -16,10 +16,10 @@
 -------------------------------------*/
 .section_02 {
     font-size: 14px;
-    background: #f5f8ef;
+    background: #f8f9f3;
     padding: 60px 0 70px;
     .title_h2 {
-        padding-bottom: 50px;
+        padding-bottom: 30px;
     }
     .title_h3 {
         padding-top: 20px;
@@ -36,7 +36,7 @@
     }
     .list_about {
         padding: 0 25px;
-        @extends %clearfix;
+        @extend %clearfix;
         div {
             text-align: center;
             float: left;
@@ -45,6 +45,9 @@
         }
     }
     .link_list {
+        width: 75%;
+        display: block;
+        margin: auto;
         background: url('../img/arrow_right.png') no-repeat 6% 50% #53b592;
         color: #fff;
         border-radius: 5px;
@@ -120,7 +123,7 @@
     }
 }
 .box_ssl {
-    @extends %clearfix;
+    @extend %clearfix;
     .icon_ssl {
         float: left;
         margin-right: 34px;        
@@ -128,7 +131,12 @@
     .description_text {
         padding-top: 10px;
     }
-    
+    a {
+        color: #000;
+        span {
+            text-decoration: underline;
+        }
+    }
 }
 /*    block_of_genre
 -------------------------------------*/
