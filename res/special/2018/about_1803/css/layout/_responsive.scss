@@ -18,7 +18,7 @@
         // font-weight: bold;
     }
     .title_h3 {
-        font-size: 3.7vw;
+        font-size: 4.5vw;
         padding-bottom: 2vw;
         margin-bottom: 2vw;
         // line-height: 1.8;
@@ -50,7 +50,7 @@
         img {
             width: 80%;
         }
-    }    
+    }
     .section_01 {
         .title_h2 {
             padding-left: 2%;
@@ -63,6 +63,13 @@
             background-size: 150%;
             border-radius: 0;
             padding-top: 20vw;
+        }
+        .title_h3 {
+            font-size: 4vw;
+            line-height: 1.4;
+        }
+        .title_h2 {
+            padding-bottom: 0;
         }
         .pt_45 {
             padding-top: 0!important;
@@ -79,8 +86,9 @@
         }
         .link_list {
             width: 90%;
-            font-size: 2.8vw;
-            padding: 3px 10px 2px 15px;
+            font-size: 2.9vw;
+            padding: 6px 10px 5px 15px;
+            background-size: 4%;
         }
         + .btn_primary {
             padding: 4.8vw 3% 10vw;
@@ -92,10 +100,6 @@
             background-size: 150%;
             border-radius: 0;
             padding: 20vw 3% 6vw;
-        }
-        .title_h2 {
-            width: 85%;
-            margin: auto;
         }
         .local_ssl {
             padding: 4.6vw 3.5%;
@@ -145,6 +149,9 @@
         .container {
             padding: 0;
         }
+        .title_h3 {
+            padding-left: 5vw;
+        }
         .line {
             margin-bottom: 0;
         }
@@ -154,9 +161,10 @@
                 width: 100%;
                 padding: 0;
                 border-bottom: 1px solid #3f1a1a;
-                background: url("../img/icon_play.png") no-repeat 5% 50%;
+                background: url("../img/icon_play.png") no-repeat 97% 50%;
+                background-size: 6%;
                 a {
-                    padding: 2.8vw 2vw 2.8vw 11vw;
+                    padding: 2.8vw 11vw 2.8vw 6vw;
                     display: block;
                 }
             }

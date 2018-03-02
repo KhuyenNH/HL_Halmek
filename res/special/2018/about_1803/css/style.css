@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .listItems:after, .section_02 .list_about:after, .box_ssl:after, .footer:after {
   content: "";
   clear: both;
@@ -55,6 +56,7 @@ button:focus, input:focus, a:focus {
 
 /*------------------- Component -------------------*/
 .title_h2 {
+  font-family: "游明朝体", "YuMincho", "游明朝", "Yu Mincho", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN W3", HiraMinProN-W3, "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "HGS明朝E", "ＭＳ Ｐ明朝", "MS PMincho", serif;
   font-size: 26px;
   color: #151515;
   line-height: 1.2;
@@ -86,7 +88,7 @@ button:focus, input:focus, a:focus {
 
 /*------------------- List -------------------*/
 .bnr_main {
-  background: url("../img/bg_main.png");
+  background: url("../img/bg_main.jpg") 50% 50% no-repeat;
   background-size: cover;
   height: 529px;
   display: -webkit-box;
@@ -119,7 +121,7 @@ button:focus, input:focus, a:focus {
 -------------------------------------*/
 .section_02 {
   font-size: 14px;
-  background: #f8f9f3;
+  background: #edf3e0;
   padding: 60px 0 70px;
 }
 
@@ -128,13 +130,14 @@ button:focus, input:focus, a:focus {
 }
 
 .section_02 .title_h3 {
+  font-family: "游明朝体", "YuMincho", "游明朝", "Yu Mincho", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN W3", HiraMinProN-W3, "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "HGS明朝E", "ＭＳ Ｐ明朝", "MS PMincho", serif;
   padding-top: 20px;
   padding-bottom: 6px;
   margin-bottom: 10px;
 }
 
 .section_02 .container {
-  background: url("../img/bg_tit_01.jpg") no-repeat top center #fff;
+  background: url("../img/bg_tit_01.png") no-repeat top center #fff;
   padding-top: 90px;
   padding-bottom: 60px;
   position: relative;
@@ -160,7 +163,14 @@ button:focus, input:focus, a:focus {
   background: url("../img/arrow_right.png") no-repeat 6% 50% #53b592;
   color: #fff;
   border-radius: 5px;
-  padding: 3px 20px 2px 30px;
+  padding: 6px 18px 5px 28px;
+  border: 2px solid transparent;
+}
+
+.section_02 .link_list:hover {
+  color: #53b592;
+  border: 2px solid #53b592;
+  background: url("../img/arrow_right_blue.png") no-repeat 6% 50% #fff;
 }
 
 .section_02 .des_list {
@@ -187,6 +197,7 @@ button:focus, input:focus, a:focus {
 }
 
 .section_03 .title_h3 {
+  font-family: "游明朝体", "YuMincho", "游明朝", "Yu Mincho", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN W3", HiraMinProN-W3, "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "HGS明朝E", "ＭＳ Ｐ明朝", "MS PMincho", serif;
   border-bottom: 0;
   position: relative;
   margin-bottom: 15px;
@@ -249,10 +260,11 @@ button:focus, input:focus, a:focus {
 /*    block_of_genre
 -------------------------------------*/
 #block_of_genre {
-  padding-bottom: 85px;
+  padding-bottom: 40px;
 }
 
 #block_of_genre .title_section {
+  font-family: "游明朝体", "YuMincho", "游明朝", "Yu Mincho", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN W3", HiraMinProN-W3, "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "HGS明朝E", "ＭＳ Ｐ明朝", "MS PMincho", serif;
   font-size: 35px;
   padding-bottom: 15px;
   margin-bottom: 15px;
@@ -296,7 +308,7 @@ button:focus, input:focus, a:focus {
 }
 
 #home .cat-list li a:hover {
-  background: #e6e6e6;
+  background: transparent url("../img/bg-catlist-hover.png") left bottom repeat-x;
 }
 
 /*======================================
@@ -362,7 +374,7 @@ button:focus, input:focus, a:focus {
     font-size: 4vw;
   }
   .title_h3 {
-    font-size: 3.7vw;
+    font-size: 4.5vw;
     padding-bottom: 2vw;
     margin-bottom: 2vw;
   }
@@ -395,6 +407,13 @@ button:focus, input:focus, a:focus {
     border-radius: 0;
     padding-top: 20vw;
   }
+  .section_02 .title_h3 {
+    font-size: 4vw;
+    line-height: 1.4;
+  }
+  .section_02 .title_h2 {
+    padding-bottom: 0;
+  }
   .section_02 .pt_45 {
     padding-top: 0 !important;
   }
@@ -410,8 +429,9 @@ button:focus, input:focus, a:focus {
   }
   .section_02 .link_list {
     width: 90%;
-    font-size: 2.8vw;
-    padding: 3px 10px 2px 15px;
+    font-size: 2.9vw;
+    padding: 6px 10px 5px 15px;
+    background-size: 4%;
   }
   .section_02 + .btn_primary {
     padding: 4.8vw 3% 10vw;
@@ -423,10 +443,6 @@ button:focus, input:focus, a:focus {
     background-size: 150%;
     border-radius: 0;
     padding: 20vw 3% 6vw;
-  }
-  .section_03 .title_h2 {
-    width: 85%;
-    margin: auto;
   }
   .section_03 .local_ssl {
     padding: 4.6vw 3.5%;
@@ -468,6 +484,9 @@ button:focus, input:focus, a:focus {
   .section_04 .container {
     padding: 0;
   }
+  .section_04 .title_h3 {
+    padding-left: 5vw;
+  }
   .section_04 .line {
     margin-bottom: 0;
   }
@@ -476,10 +495,11 @@ button:focus, input:focus, a:focus {
     width: 100%;
     padding: 0;
     border-bottom: 1px solid #3f1a1a;
-    background: url("../img/icon_play.png") no-repeat 5% 50%;
+    background: url("../img/icon_play.png") no-repeat 97% 50%;
+    background-size: 6%;
   }
   .section_04 .table_link td a {
-    padding: 2.8vw 2vw 2.8vw 11vw;
+    padding: 2.8vw 11vw 2.8vw 6vw;
     display: block;
   }
 }

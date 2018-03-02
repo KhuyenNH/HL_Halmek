@@ -16,18 +16,19 @@
 -------------------------------------*/
 .section_02 {
     font-size: 14px;
-    background: #f8f9f3;
+    background: #edf3e0;
     padding: 60px 0 70px;
     .title_h2 {
         padding-bottom: 30px;
     }
     .title_h3 {
+        font-family: "游明朝体", "YuMincho", "游明朝", "Yu Mincho", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN W3", HiraMinProN-W3, "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "HGS明朝E", "ＭＳ Ｐ明朝", "MS PMincho", serif;
         padding-top: 20px;
         padding-bottom: 6px;
         margin-bottom: 10px;
     }
     .container {
-        background: url('../img/bg_tit_01.jpg') no-repeat top center #fff;
+        background: url("../img/bg_tit_01.png") no-repeat top center #fff;
         padding-top: 90px;
         padding-bottom: 60px;
         position: relative;
@@ -51,7 +52,13 @@
         background: url('../img/arrow_right.png') no-repeat 6% 50% #53b592;
         color: #fff;
         border-radius: 5px;
-        padding: 3px 20px 2px 30px;
+        padding: 6px 18px 5px 28px;
+        border: 2px solid transparent;
+        &:hover {
+            color: #53b592;
+            border: 2px solid #53b592;
+            background: url('../img/arrow_right_blue.png') no-repeat 6% 50% #fff;
+        }
     }
     .des_list {
         padding: 0 5px 20px 5px;
@@ -74,6 +81,7 @@
         padding: 85px 60px 50px;
     }
     .title_h3 {
+        font-family: "游明朝体", "YuMincho", "游明朝", "Yu Mincho", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN W3", HiraMinProN-W3, "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "HGS明朝E", "ＭＳ Ｐ明朝", "MS PMincho", serif;
         border-bottom: 0;
         position: relative;
         margin-bottom: 15px;
@@ -115,7 +123,7 @@
         .text_ssl {
             font-size: 20px;
             padding-top: 15px;
-            padding-bottom: 6px;   
+            padding-bottom: 6px;
         }
     }
     + .btn_primary {
@@ -126,7 +134,7 @@
     @extend %clearfix;
     .icon_ssl {
         float: left;
-        margin-right: 34px;        
+        margin-right: 34px;
     }
     .description_text {
         padding-top: 10px;
@@ -141,8 +149,9 @@
 /*    block_of_genre
 -------------------------------------*/
 #block_of_genre {
-    padding-bottom: 85px;
+    padding-bottom: 40px;
     .title_section {
+        font-family: "游明朝体", "YuMincho", "游明朝", "Yu Mincho", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN W3", HiraMinProN-W3, "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "HGS明朝E", "ＭＳ Ｐ明朝", "MS PMincho", serif;
         font-size: 35px;
         padding-bottom: 15px;
         margin-bottom: 15px;
@@ -162,7 +171,7 @@
         border-bottom: 0;
         font-weight: bold;
         padding-bottom: 10px;
-        
+
     }
     .line {
         border-bottom: 1px solid #3f1a1a;
@@ -183,5 +192,5 @@
     width: inherit;
 }
 #home .cat-list li a:hover {
-    background: #e6e6e6;
+    background: transparent url('../img/bg-catlist-hover.png') left bottom repeat-x;
 }

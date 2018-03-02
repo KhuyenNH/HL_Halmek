@@ -11,11 +11,13 @@
 /*------------------- Component -------------------*/
 // /*------------------- Typography -------------------*/
 .title_h2 {
+    font-family: "游明朝体", "YuMincho", "游明朝", "Yu Mincho", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN W3", HiraMinProN-W3, "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "HGS明朝E", "ＭＳ Ｐ明朝", "MS PMincho", serif;
+    
     font-size: 26px;
     color: #151515;
     line-height: 1.2;
     text-align: center;
-    
+
 }
 .title_h3 {
     padding-bottom: 15px;
