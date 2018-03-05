@@ -12,7 +12,7 @@
 // /*------------------- Typography -------------------*/
 .title_h2 {
     font-family: "游明朝体", "YuMincho", "游明朝", "Yu Mincho", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN W3", HiraMinProN-W3, "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "HGS明朝E", "ＭＳ Ｐ明朝", "MS PMincho", serif;
-    
+
     font-size: 26px;
     color: #151515;
     line-height: 1.2;
@@ -27,6 +27,9 @@
     font-size: 25px;
     line-height: 1.2;
     // font-weight: bold;
+    a {
+        color: #53b592;
+    }
 }
 .title_A {
     // font-size: 24px;

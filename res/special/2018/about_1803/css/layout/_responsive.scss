@@ -6,7 +6,7 @@
         display: none;
     }
     .is_sp {
-        display: inherit;
+        display: block;
     }
     body {
         font-size: 2.3vw;
@@ -77,9 +77,15 @@
         .pt_6_sp {
             padding-top: 6vw!important;
         }
+        .img_sp {
+            // display: flex;
+            // width: 55%;
+            // align-items: flex-end;
+            // margin: auto;
+        }
         .list_about {
             padding: 0;
-            div {
+            .items_about {
                 width: 50%;
                 padding: 0 5px;
             }
